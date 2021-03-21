@@ -1,4 +1,4 @@
-import 'package:clicktimes/login/auth.dart';
+import 'package:clicktimes/services/auth.dart';
 import 'package:clicktimes/pages/landing_page.dart';
 import 'package:clicktimes/pages/loginpage.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -9,6 +9,8 @@ const kSecondary =Color(0xFF6690FF);
 const kPrimaryLight=Color(0xFFF2F2F5);
 const kPrimaryText=Color(0xFF254EDA);
 
+const kSecondarylight=Color(0xFFFAFAFC);
+
 
 
 
@@ -27,3 +29,9 @@ const paragraphmedium = TextStyle(
   fontFamily: 'Inter'
 );
 
+const headerappbar = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w700,
+  color: kPrimaryColor,
+  fontFamily: 'Inter'
+);

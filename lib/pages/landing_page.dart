@@ -1,6 +1,6 @@
-import 'dart:async';
 
-import 'package:clicktimes/login/auth.dart';
+
+import 'package:clicktimes/services/auth.dart';
 import 'package:clicktimes/pages/homepage.dart';
 import 'package:clicktimes/pages/loginpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
