@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1011097823396",
+    "project_id": "clicktimes-5f2fa",
+    "storage_bucket": "clicktimes-5f2fa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011097823396:android:ecc9a370371058fa415e31",
+        "android_client_info": {
+          "package_name": "com.clicktimes.clicktimes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011097823396-3jl25qc6htn3ted2vjsr22la4doqhqne.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clicktimes.clicktimes",
+            "certificate_hash": "9dce9bb3b8c436b8f0dff2b7132fa91696602e14"
+          }
+        },
+        {
+          "client_id": "1011097823396-9uq341o4v01elht4ku37n284taashq8e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzmHFl1cGYhIifDOeqVMXpcssafDocCHs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011097823396-9uq341o4v01elht4ku37n284taashq8e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
