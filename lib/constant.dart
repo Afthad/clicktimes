@@ -28,10 +28,32 @@ const paragraphmedium = TextStyle(
   color: Colors.white,
   fontFamily: 'Inter'
 );
-
+const paragraphmedium1 = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.normal,
+  color: Colors.grey,
+  fontFamily: 'Inter'
+);
 const headerappbar = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.w700,
   color: kPrimaryColor,
   fontFamily: 'Inter'
 );
+const insideform = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.normal,
+  color: Colors.grey,
+  fontFamily: 'Inter'
+);
+const formheading = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w800,
+  color: Colors.black,
+  fontFamily: 'Inter'
+);
+class Works{
+  final String name;
+
+  Works({@required this.name});
+}
