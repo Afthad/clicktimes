@@ -11,9 +11,10 @@ const kPrimaryText=Color(0xFF254EDA);
 
 const kSecondarylight=Color(0xFFFAFAFC);
 
+const hirebuttoncolour=Color(0xFFE2E7FF);
+const kSubtitle =Color(0xFF8E90A6);
 
-
-
+const kstartcolour =Color(0xFFFFEC3A);
 const kHeading = TextStyle(
   fontSize: 25,
   fontWeight: FontWeight.w700,
@@ -34,6 +35,12 @@ const paragraphmedium1 = TextStyle(
   color: Colors.grey,
   fontFamily: 'Inter'
 );
+const paragraphmedium2 = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w400,
+  color: Colors.black,
+  fontFamily: 'Inter'
+);
 const headerappbar = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.w700,
@@ -52,8 +59,21 @@ const formheading = TextStyle(
   color: Colors.black,
   fontFamily: 'Inter'
 );
-class Works{
-  final String name;
-
-  Works({@required this.name});
-}
+const posttitlename = TextStyle(
+  fontSize: 17,
+  fontWeight: FontWeight.w700,
+  color: Colors.black,
+  fontFamily: 'Inter'
+);
+const posttitlesub = TextStyle(
+  fontSize: 10,
+  fontWeight: FontWeight.w400,
+  color: kSubtitle ,
+  fontFamily: 'Inter'
+);
+const hirebutton = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.w400,
+  color: kPrimaryColor,
+  fontFamily: 'Inter'
+);
