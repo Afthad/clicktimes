@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:clicktimes/models/postmodel.dart';
 import 'package:clicktimes/models/usermodel.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:meta/meta.dart';
 import 'apipath.dart';
 import 'firestore_service.dart';

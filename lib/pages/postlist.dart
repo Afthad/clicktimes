@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 typedef ItemWidgetBuilder<T> = Widget Function(BuildContext context, T item);
 
-class ListItemsBuilder<T> extends StatelessWidget {
-  const ListItemsBuilder({
+class PostListItemsBuilder<T> extends StatelessWidget {
+  const PostListItemsBuilder({
     Key key,
     @required this.snapshot,
     @required this.itemBuilder,
