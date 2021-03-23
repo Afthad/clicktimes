@@ -1,3 +1,5 @@
+import 'package:clicktimes/constant.dart';
+import 'package:clicktimes/models/usermodel.dart';
 import 'package:clicktimes/services/tabfreelancer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +12,9 @@ class CupertinoHomeScaffold extends StatelessWidget {
     @required this.onSelectTab,
     @required this.widgetBuilders,
     @required this.navigatorKeys,
+    @required this.usermodel,
   }) : super(key: key);
-
+final Usermodel usermodel;
   final FTabItem currentTab;
   final ValueChanged<FTabItem> onSelectTab;
   final Map<FTabItem, WidgetBuilder> widgetBuilders;
@@ -38,7 +41,19 @@ class CupertinoHomeScaffold extends StatelessWidget {
           BottomNavigationBarItem(
               icon: CircleAvatar(
             radius: 12,
-          ))
+            backgroundColor: Colors.grey,
+            backgroundImage:  NetworkImage(usermodel.profile),
+            
+          ),
+          activeIcon:  CircleAvatar(
+            radius: 12,
+            backgroundColor: kPrimaryColor,
+                     child: CircleAvatar(backgroundImage: NetworkImage(usermodel.profile),
+                     radius: 10.5,
+                     ),      
+          ),
+          )
+          
         ],
         onTap: (index) => onSelectTab(FTabItem.values[index]),
       ),

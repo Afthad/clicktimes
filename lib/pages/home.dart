@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
           body: WillPopScope(
         onWillPop: () async => !await navigatorKeys[_currentTab].currentState.maybePop(),
         child: CupertinoHomeScaffold(
-
+          usermodel:widget.usermodel,
           currentTab: _currentTab,
           onSelectTab: _select,
           widgetBuilders: widgetBuilders,

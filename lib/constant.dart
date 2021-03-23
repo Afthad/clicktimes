@@ -47,6 +47,12 @@ const paragraphmedium2 = TextStyle(
   color: Colors.black,
   fontFamily: 'Inter'
 );
+const paragraphmedium5 = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.w400,
+  color: Colors.black,
+  fontFamily: 'Inter'
+);
 const headerappbar = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.w700,
