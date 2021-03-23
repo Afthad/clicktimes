@@ -1,4 +1,3 @@
-
 import 'package:clicktimes/constant.dart';
 import 'package:clicktimes/models/usermodel.dart';
 import 'package:clicktimes/pages/postpage.dart';
@@ -31,10 +30,18 @@ class _HomePageState extends State<HomePage> {
 
   Map<FTabItem, WidgetBuilder> get widgetBuilders {
     return {
-      FTabItem.feeds: (_) => Feedspage(usermodel: widget.usermodel,),
-      FTabItem.post: (_) => Container(),
+      FTabItem.feeds: (_) => Feedspage(
+            usermodel: widget.usermodel,
+          ),
+      FTabItem.post: (_) {
+        return Container();
+      },
       FTabItem.message: (_) => Container(),
-      FTabItem.profile: (_) => Profile(usermodel: widget.usermodel,),
+      FTabItem.profile: (_) {
+        
+        return Profile(
+            usermodel: widget.usermodel,
+          );}
     };
   }
 
@@ -51,26 +58,61 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.5,
-        leading: SvgPicture.asset('images/logo1.svg',cacheColorFilter: true,),
-        actions: [
-     Padding(
-       padding: const EdgeInsets.all(16.0),
-       child: MaterialButton(onPressed: (){},
-         child: Text('AVAILABLE',style: paragraphmedium10,),
-           color: kSuccessColorPayment,
-              shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)) ,   
-  ),
-     ),
-     
-        ],
-
-      ),
-          body: WillPopScope(
-        onWillPop: () async => !await navigatorKeys[_currentTab].currentState.maybePop(),
+          backgroundColor: Colors.white,
+          elevation: 0.5,
+          leading: SvgPicture.asset(
+            'images/logo1.svg',
+            cacheColorFilter: true,
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(14.0),
+              child: MaterialButton(
+                onPressed: () {},
+                child: Text(
+                  'AVAILABLE',
+                  style: paragraphmedium10,
+                ),
+                color: kSuccessColorPayment,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                  iconSize: 13,
+                  icon: SvgPicture.asset(
+                    'images/Notificationout.svg',
+                    color: kPrimaryColor,
+                  ),
+                  onPressed: () {}),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CircleAvatar(
+                child: 
+                
+              widget.usermodel.role == 'Freelancer'?  Text(
+                  'FL',
+                  style: frcu,
+                ):widget.usermodel.role == 'Customer'? Text(
+                  'CU',
+                  style: frcu,
+                ): Text(
+                  'CT',
+                  style: frcu,
+                ),
+                radius: 13,
+                backgroundColor: kPrimaryColor,
+              ),
+            )
+          ]),
+      body: WillPopScope(
+        onWillPop: () async =>
+            !await navigatorKeys[_currentTab].currentState.maybePop(),
         child: CupertinoHomeScaffold(
-          usermodel:widget.usermodel,
+          usermodel: widget.usermodel,
           currentTab: _currentTab,
           onSelectTab: _select,
           widgetBuilders: widgetBuilders,
@@ -79,5 +121,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
 }

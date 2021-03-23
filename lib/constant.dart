@@ -29,9 +29,16 @@ const paragraphmedium = TextStyle(
   color: Colors.white,
   fontFamily: 'Inter'
 );
+const frcu = TextStyle(
+  fontSize: 10,
+  fontWeight: FontWeight.normal,
+  color: Colors.white,
+  fontFamily: 'Inter'
+);
 const paragraphmedium10 = TextStyle(
   fontSize: 10,
   fontWeight: FontWeight.normal,
+  
   color: Colors.white,
   fontFamily: 'Inter'
 );
