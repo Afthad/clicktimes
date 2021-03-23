@@ -46,34 +46,30 @@ class _PosttileState extends State<Posttile> {
      SizedBox(height: 5,),
         Center(child: Image.network(widget.post.posturl,loadingBuilder: null)),
         SizedBox(height: 5,),
-       Row(
-         
-         mainAxisAlignment: MainAxisAlignment.start,
-         children: [
-           Expanded(
-                        child: ListTile(
-     
-               leading: IconButton(iconSize: 26,icon: Icon(Icons.star_border_sharp,color: kstartcolour,), onPressed: (){}),
-               title: Text('150 Clicks',style: paragraphmedium2,),
-               horizontalTitleGap: 5,
-               trailing: MaterialButton(onPressed: (){},
-               child: Text('Hire',style: hirebutton,),
-               highlightColor: hirebuttoncolour,
-               color: hirebuttoncolour,
-               elevation: 0.0,
-               highlightElevation: 0.0,
-               focusElevation: 0.0,
-               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-               ),
+       ListTile(
+      contentPadding: EdgeInsets.symmetric(horizontal: 0.0),
+           leading: IconButton(iconSize: 30,icon: Icon(Icons.star_border_sharp,color: kstartcolour,), onPressed: (){}),
+           title: Text('150 Clicks',style: paragraphmedium2,),
+           horizontalTitleGap: 1,
+           trailing: Padding(
+             padding: const EdgeInsets.all(8.0),
+             child: MaterialButton(onPressed: (){},
+             child: Text('Hire',style: hirebutton,),
+             highlightColor: hirebuttoncolour,
+             color: hirebuttoncolour,
+             elevation: 0.0,
+             highlightElevation: 0.0,
+             focusElevation: 0.0,
+             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+          
              ),
            ),
-         ],
-       ),
+         ),
        Padding(
-         padding: const EdgeInsets.all(8.0),
-         child: Text(widget.post.caption),
+         padding: const EdgeInsets.only(left:15.0,right: 8),
+         child: Text(widget.post.caption,style: paragraphmedium4,),
        ),
-       SizedBox(height: 10,)
+       SizedBox(height: 20,)
       ],
     );
   }

@@ -13,7 +13,7 @@ const kSecondarylight=Color(0xFFFAFAFC);
 
 const hirebuttoncolour=Color(0xFFE2E7FF);
 const kSubtitle =Color(0xFF8E90A6);
-
+const kparacolor=Color(0xFF555770);
 const kstartcolour =Color(0xFFFFEC3A);
 const kHeading = TextStyle(
   fontSize: 25,
@@ -27,6 +27,12 @@ const paragraphmedium = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.normal,
   color: Colors.white,
+  fontFamily: 'Inter'
+);
+const paragraphmedium4 = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.w400,
+  color: kparacolor,
   fontFamily: 'Inter'
 );
 const paragraphmedium1 = TextStyle(
