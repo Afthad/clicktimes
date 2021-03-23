@@ -1,3 +1,4 @@
+import 'package:clicktimes/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 
 
@@ -19,12 +20,12 @@ class PostListItemsBuilder<T> extends StatelessWidget {
       if (items.isNotEmpty) {
         return _buildList(items);
       } else {
-        return Container();
+        return ShimmerPost(itemcount: 4,);
       }
     } else if (snapshot.hasError) {
-      return Container();
+      return ShimmerPost(itemcount: 4,);
     }
-    return Center(child: CircularProgressIndicator());
+    return ShimmerPost(itemcount: 4,);
   }
 
   Widget _buildList(List<T> items) {

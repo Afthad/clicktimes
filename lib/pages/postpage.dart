@@ -3,6 +3,7 @@ import 'package:clicktimes/models/usermodel.dart';
 import 'package:clicktimes/pages/postlist.dart';
 import 'package:clicktimes/pages/posttile.dart';
 import 'package:clicktimes/services/database.dart';
+import 'package:clicktimes/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,17 +19,36 @@ class _FeedspageState extends State<Feedspage> {
   @override
   Widget build(BuildContext context) {
     final database=Provider.of<Database>(context);
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: StreamBuilder<List<Post>>(
-        stream: database.postStream(),
-        builder: (context, snapshot) {
-          return PostListItemsBuilder<Post>(
-          snapshot: snapshot,
-          itemBuilder: (context, post)=>Posttile(post: post,));
-        }
-      )
-      
+    return  LayoutBuilder(
+      builder: (context,BoxConstraints constraints){
+
+       return StreamBuilder<List<Post>>(
+          stream: database.postStream(),
+          builder: (context, snapshot) {
+            return Container(
+              child: PostListItemsBuilder<Post>(
+              snapshot: snapshot,
+              itemBuilder: (context, post)=>StreamBuilder<Usermodel>(
+                stream: database.userStream(uid: post.uid),
+                builder: (context, snapshot) {
+                  if(snapshot.hasData && snapshot.connectionState==ConnectionState.active){
+                  return Posttile(post: post,usermodel: widget.usermodel,);}
+                  return Container(
+                    height: constraints.maxHeight,
+
+                    width: constraints.maxHeight,
+                    child: ShimmerPost(itemcount: 1,));
+                }
+                
+              )),
+            );
+          }
+        
+        
+      );
+
+      },
+          
     );
   }
 }
