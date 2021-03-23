@@ -1,4 +1,5 @@
 
+import 'package:clicktimes/constant.dart';
 import 'package:clicktimes/models/usermodel.dart';
 import 'package:clicktimes/pages/postpage.dart';
 import 'package:clicktimes/pages/profile.dart';
@@ -52,7 +53,18 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.5,
-        title: SvgPicture.asset('images/logo1.svg',cacheColorFilter: true,color: Colors.white,)
+        leading: SvgPicture.asset('images/logo1.svg',cacheColorFilter: true,),
+        actions: [
+     Padding(
+       padding: const EdgeInsets.all(16.0),
+       child: MaterialButton(onPressed: (){},
+         child: Text('AVAILABLE',style: paragraphmedium10,),
+           color: kSuccessColorPayment,
+              shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)) ,   
+  ),
+     ),
+     
+        ],
 
       ),
           body: WillPopScope(
