@@ -10,7 +10,7 @@ const kPrimaryLight=Color(0xFFF2F2F5);
 const kPrimaryText=Color(0xFF254EDA);
 
 const kSecondarylight=Color(0xFFFAFAFC);
-
+const dividerprofile=Color(0xFFC7C8D9);
 const hirebuttoncolour=Color(0xFFE2E7FF);
 const kSubtitle =Color(0xFF8E90A6);
 const kparacolor=Color(0xFF555770);
@@ -53,6 +53,12 @@ const headerappbar = TextStyle(
   color: kPrimaryColor,
   fontFamily: 'Inter'
 );
+const prodilecontent1 = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w700,
+  color: Colors.black,
+  fontFamily: 'Inter'
+);
 const insideform = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.normal,
@@ -67,6 +73,12 @@ const formheading = TextStyle(
 );
 const posttitlename = TextStyle(
   fontSize: 17,
+  fontWeight: FontWeight.w700,
+  color: Colors.black,
+  fontFamily: 'Inter'
+);
+const porofiletitlename = TextStyle(
+  fontSize: 24,
   fontWeight: FontWeight.w700,
   color: Colors.black,
   fontFamily: 'Inter'

@@ -1,6 +1,7 @@
 
 import 'package:clicktimes/models/usermodel.dart';
 import 'package:clicktimes/pages/postpage.dart';
+import 'package:clicktimes/pages/profile.dart';
 import 'package:clicktimes/services/tabfreelancer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class _HomePageState extends State<HomePage> {
       FTabItem.feeds: (_) => Feedspage(usermodel: widget.usermodel,),
       FTabItem.post: (_) => Container(),
       FTabItem.message: (_) => Container(),
-      FTabItem.profile: (_) => Container(),
+      FTabItem.profile: (_) => Profile(usermodel: widget.usermodel,),
     };
   }
 
