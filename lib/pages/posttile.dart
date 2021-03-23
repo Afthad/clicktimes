@@ -44,7 +44,35 @@ class _PosttileState extends State<Posttile> {
               onPressed: () {}),
         ),
      SizedBox(height: 5,),
-        Center(child: Image.network(widget.post.posturl,loadingBuilder: null)),
+        Center(child: Image.network(widget.post.posturl,
+        
+        
+        frameBuilder: (BuildContext context, Widget child, int frame, bool wasSynchronouslyLoaded) {
+    return Padding(
+      padding: EdgeInsets.all(0.0),
+      child: child,
+    );
+  },
+        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
+        if (loadingProgress == null)
+          return Container(
+            height: 250,
+            child: child);
+        
+        return Container(
+          height: 250,
+          child: Center(
+            child: CircularProgressIndicator(
+              strokeWidth: .5,
+             // backgroundColor: kPrimaryColor,
+              value: loadingProgress.expectedTotalBytes != null
+                  ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
+                  : null,
+            ),
+          ),
+        );
+      },
+    )),
         SizedBox(height: 5,),
        ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 0.0),
