@@ -1,12 +1,15 @@
 
 
+import 'package:clicktimes/pages/selctorpage.dart';
 import 'package:clicktimes/services/auth.dart';
-import 'package:clicktimes/pages/homepage.dart';
+import 'package:clicktimes/pages/registrationpage.dart';
 import 'package:clicktimes/pages/loginpage.dart';
 import 'package:clicktimes/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'home.dart';
 
 class LandingPage extends StatelessWidget {
   @override
@@ -22,7 +25,7 @@ class LandingPage extends StatelessWidget {
             }
              return Provider<Database>(
               create: (_) => FirestoreDatabase(uid: user.uid),
-              child: Homepage(uid:user.uid),
+              child: Selectorpage(uid:user.uid)
             );;
           } else {
             return Scaffold(

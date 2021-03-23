@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:clicktimes/models/postmodel.dart';
 import 'package:clicktimes/models/usermodel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import 'apipath.dart';
 import 'firestore_service.dart';
@@ -9,8 +11,8 @@ abstract class Database {
   Future<void> setUser(Usermodel user);
   // Future<void> deleteJob(Job job);
   // Stream<List<Job>> jobsStream();
-  // Stream<Job> jobStream({@required String jobId});
-
+ Stream<Usermodel> userStream({@required String uid});
+ Stream<List<Post>> postStream();
   // Future<void> setEntry(Entry entry);
   // Future<void> deleteEntry(Entry entry);
   // Stream<List<Entry>> entriesStream({Job job});
@@ -43,17 +45,17 @@ class FirestoreDatabase implements Database {
   //   await _service.deleteData(path: APIPath.job(uid, job.id));
   // }
 
-  // @override
-  // Stream<Job> jobStream({@required String jobId}) => _service.documentStream(
-  //       path: APIPath.job(uid, jobId),
-  //       builder: (data, documentId) => Job.fromMap(data, documentId),
-  //     );
+  @override
+  Stream<Usermodel> userStream({@required String uid}) => _service.documentStream(
+        path: APIPath.user(uid),
+        builder: (data, documentId) => Usermodel.fromMap(data, documentId),
+      );
 
-  // @override
-  // Stream<List<Job>> jobsStream() => _service.collectionStream(
-  //       path: APIPath.jobs(uid),
-  //       builder: (data, documentId) => Job.fromMap(data, documentId),
-  //     );
+  @override
+  Stream<List<Post>> postStream() => _service.collectionStream(
+        path: APIPath.post(),
+        builder: (data, documentId) => Post.fromMap(data, documentId),
+      );
 
   // @override
   // Future<void> setEntry(Entry entry) async => await _service.setData(

@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:clicktimes/models/usermodel.dart';
-import 'package:clicktimes/services/auth.dart';
 import 'package:clicktimes/services/database.dart';
 import 'package:clicktimes/widgets/choices.dart';
 import 'package:flutter/material.dart';
@@ -13,19 +12,19 @@ import 'package:provider/provider.dart';
 
 import '../constant.dart';
 
-class Homepage extends StatefulWidget {
+class Registrationpage extends StatefulWidget {
   final String uid;
 
-  const Homepage({Key key, this.uid}) : super(key: key);
+  const Registrationpage({Key key, this.uid}) : super(key: key);
   @override
-  _HomepageState createState() => _HomepageState();
+  _RegistrationpageState createState() => _RegistrationpageState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _RegistrationpageState extends State<Registrationpage> {
   File _imageFile;
   final picker = ImagePicker();
 
-  _HomepageState();
+  _RegistrationpageState();
 
   /// Cropper plugin
   Future<void> _getImage() async {

@@ -1,8 +1,7 @@
-import 'package:clicktimes/freelancer/tabfreelancer.dart';
+import 'package:clicktimes/services/tabfreelancer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 
 class CupertinoHomeScaffold extends StatelessWidget {
   const CupertinoHomeScaffold({
@@ -22,24 +21,24 @@ class CupertinoHomeScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     //int index=0;
     return CupertinoTabScaffold(
+      
       backgroundColor: Colors.white,
       tabBar: CupertinoTabBar(
         backgroundColor: Colors.white,
         items: [
-         
-         BottomNavigationBarItem(
-           
-           activeIcon: SvgPicture.asset('images/Home.svg'),
-           icon: SvgPicture.asset('images/Homeout.svg')),
-          BottomNavigationBarItem(icon: SvgPicture.asset('images/Postout.svg'),
-          activeIcon: SvgPicture.asset('images/Post.svg')
-          ),
-           BottomNavigationBarItem(icon: SvgPicture.asset('images/Messageout.svg'),
-           activeIcon: SvgPicture.asset('images/Message.svg')
-           ),
-            BottomNavigationBarItem(icon:CircleAvatar(
-              radius: 12,
-            ) )
+          BottomNavigationBarItem(
+              activeIcon: SvgPicture.asset('images/Home.svg'),
+              icon: SvgPicture.asset('images/Homeout.svg')),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset('images/Postout.svg'),
+              activeIcon: SvgPicture.asset('images/Post.svg')),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset('images/Messageout.svg'),
+              activeIcon: SvgPicture.asset('images/Message.svg')),
+          BottomNavigationBarItem(
+              icon: CircleAvatar(
+            radius: 12,
+          ))
         ],
         onTap: (index) => onSelectTab(FTabItem.values[index]),
       ),
@@ -52,6 +51,4 @@ class CupertinoHomeScaffold extends StatelessWidget {
       },
     );
   }
-
-
 }
