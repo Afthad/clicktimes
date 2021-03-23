@@ -102,6 +102,7 @@ const porofiletitlename = TextStyle(
   color: Colors.black,
   fontFamily: 'Inter'
 );
+
 const posttitlesub = TextStyle(
   fontSize: 10,
   fontWeight: FontWeight.w400,

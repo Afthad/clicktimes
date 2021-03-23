@@ -1,12 +1,16 @@
 import 'package:clicktimes/constant.dart';
 import 'package:clicktimes/models/postmodel.dart';
+import 'package:clicktimes/models/usermodel.dart';
+import 'package:clicktimes/pages/profilefreelancer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Posttile extends StatefulWidget {
   final Post post;
+  final Usermodel usermodel;
 
-  const Posttile({Key key, @required this.post}) : super(key: key);
+  const Posttile({Key key, @required this.post,@required this.usermodel}) : super(key: key);
   @override
   _PosttileState createState() => _PosttileState();
 }
@@ -32,9 +36,22 @@ class _PosttileState extends State<Posttile> {
               backgroundImage: NetworkImage(widget.post.posturl),
             ),
           ),
-          title: Text(
-            widget.post.username,
-            style: posttitlename,
+          title:GestureDetector(
+            onTap: (){
+             Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => ProfileFreelancer(
+
+      post: widget.post,
+      usermodel: widget.usermodel,
+     
+    )),
+  );
+            },
+                      child: Text(
+              widget.post.username,
+              style: posttitlename,
+            ),
           ),
           subtitle: Text(
           'KOZHIKODE',style: posttitlesub,
