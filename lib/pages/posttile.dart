@@ -2,6 +2,7 @@ import 'package:clicktimes/constant.dart';
 import 'package:clicktimes/models/postmodel.dart';
 import 'package:clicktimes/models/usermodel.dart';
 import 'package:clicktimes/pages/profilefreelancer.dart';
+import 'package:clicktimes/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,8 +10,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 class Posttile extends StatefulWidget {
   final Post post;
   final Usermodel usermodel;
+  final Usermodel userpost;
+  final Database database;
 
-  const Posttile({Key key, @required this.post, @required this.usermodel})
+  const Posttile({Key key,@required this.database, @required this.userpost, @required this.post, @required this.usermodel})
       : super(key: key);
   @override
   _PosttileState createState() => _PosttileState();
@@ -33,7 +36,7 @@ class _PosttileState extends State<Posttile> {
             child: CircleAvatar(
               backgroundColor: Colors.grey,
               radius: 23,
-              backgroundImage: NetworkImage(widget.post.posturl),
+              backgroundImage: NetworkImage(widget.userpost.profile),
             ),
           ),
           title: GestureDetector(
@@ -44,16 +47,18 @@ class _PosttileState extends State<Posttile> {
                     builder: (context) => ProfileFreelancer(
                           post: widget.post,
                           usermodel: widget.usermodel,
+                          postuser:widget.userpost,
+                          database: widget.database,
                         )),
               );
             },
             child: Text(
-              widget.post.username,
+              widget.userpost.name,
               style: posttitlename,
             ),
           ),
           subtitle: Text(
-            'KOZHIKODE',
+           widget.userpost.location,
             style: posttitlesub,
           ),
           trailing: IconButton(
