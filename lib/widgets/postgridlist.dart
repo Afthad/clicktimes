@@ -1,4 +1,5 @@
 import 'package:clicktimes/widgets/shimmer.dart';
+import 'package:clicktimes/widgets/shimmergrid.dart';
 import 'package:flutter/material.dart';
 
 
@@ -20,12 +21,12 @@ class GridListItemsBuilder<T> extends StatelessWidget {
       if (items.isNotEmpty) {
         return _buildList(items);
       } else {
-        return ShimmerPost(itemcount: 4,);
+        return ShimmerPostGrid(itemcount: 9,);
       }
     } else if (snapshot.hasError) {
-      return ShimmerPost(itemcount: 4,);
+      return ShimmerPostGrid(itemcount: 9,);
     }
-    return ShimmerPost(itemcount: 4,);
+    return ShimmerPostGrid(itemcount: 9,);
   }
 
   Widget _buildList(List<T> items) {
