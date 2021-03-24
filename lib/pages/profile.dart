@@ -17,10 +17,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    final database = Provider.of<Database>(context);
-    return StreamBuilder<Usermodel>(
-        stream: database.userStream(uid: widget.usermodel.uid),
-        builder: (context, snapshot) {
+   
           return SingleChildScrollView(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -147,6 +144,6 @@ class _ProfileState extends State<Profile> {
                 ],
                 ),
           );
-        });
+  
   }
 }
