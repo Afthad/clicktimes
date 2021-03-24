@@ -2,11 +2,15 @@ import 'package:clicktimes/constant.dart';
 import 'package:clicktimes/models/usermodel.dart';
 import 'package:clicktimes/pages/postpage.dart';
 import 'package:clicktimes/pages/profile.dart';
+import 'package:clicktimes/services/database.dart';
+import 'package:clicktimes/services/firestore_service.dart';
 import 'package:clicktimes/services/tabfreelancer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/parser.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 import 'homeScaffold.dart';
 
@@ -56,28 +60,50 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0.5,
-          leading: SvgPicture.asset(
-            'images/logo1.svg',
-            cacheColorFilter: true,
+          leading: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SvgPicture.asset(
+              'images/logo.svg',
+          
+              cacheColorFilter: true,
+            ),
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.all(14.0),
-              child: MaterialButton(
-                onPressed: () {},
-                child: Text(
-                  'AVAILABLE',
-                  style: paragraphmedium10,
+                  padding: const EdgeInsets.all(14.0),
+                  child:widget.usermodel.available==true? MaterialButton(
+                    onPressed: ()async {
+
+                        FirebaseFirestore.instance.collection('Users').doc(widget.usermodel.uid).update({'available':false});
+                    },
+                    child: Text(
+                      'AVAILABLE',
+                      style: paragraphmedium10,
+                    ),
+                    color: kSuccessColorPayment,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                  ):MaterialButton(
+                    onPressed: ()async {
+
+                        FirebaseFirestore.instance.collection('Users').doc(widget.usermodel.uid).update({'available':true});
+                    },
+                    child: Text(
+                      'ON WORK',
+                      style: paragraphmedium10,
+                    ),
+                    color: Colors.red,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                  ),
                 ),
-                color: kSuccessColorPayment,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
-              ),
-            ),
+              
+          
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: IconButton(

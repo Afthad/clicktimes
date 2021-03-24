@@ -30,7 +30,7 @@ class _FeedspageState extends State<Feedspage> {
             itemBuilder: (context, post)=>StreamBuilder<Usermodel>(
               stream: database.userStream(uid: post.uid),
               builder: (context, snapshot) {
-                if(snapshot.hasData && snapshot.connectionState==ConnectionState.active){
+                if(snapshot.hasData ){
                 return Posttile(post: post,usermodel: widget.usermodel,userpost:snapshot.data,database:database);}
                 return Container(
                   height: constraints.maxHeight,

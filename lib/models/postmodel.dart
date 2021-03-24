@@ -8,6 +8,7 @@ class Post {
   final String username;
   final dynamic likes;
 
+
   Post(
       {@required this.caption,
       @required this.posturl,
@@ -29,6 +30,21 @@ class Post {
         uid: uid,
         username: username,
         likes: likes);
+  }
+
+  int getLikeCount(likes) {
+    // if no likes, return 0
+    if (likes == null) {
+      return 0;
+    }
+    int count = 0;
+    // if the key is explicitly set to true, add a like
+    likes.values.forEach((val) {
+      if (val == true) {
+        count += 1;
+      }
+    });
+    return count;
   }
   Map<String, dynamic> toMap() {
     return {

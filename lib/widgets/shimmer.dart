@@ -78,7 +78,7 @@ Padding(
              ],
 
                       ),),
-                    itemCount: 4,
+                    itemCount: widget.itemcount,
                   ),
                 ),
               ),

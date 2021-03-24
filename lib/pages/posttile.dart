@@ -3,7 +3,7 @@ import 'package:clicktimes/models/postmodel.dart';
 import 'package:clicktimes/models/usermodel.dart';
 import 'package:clicktimes/pages/profilefreelancer.dart';
 import 'package:clicktimes/services/database.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -13,15 +13,79 @@ class Posttile extends StatefulWidget {
   final Usermodel userpost;
   final Database database;
 
-  const Posttile({Key key,@required this.database, @required this.userpost, @required this.post, @required this.usermodel})
+  const Posttile(
+      {Key key,
+      @required this.database,
+      @required this.userpost,
+      @required this.post,
+      @required this.usermodel})
       : super(key: key);
   @override
-  _PosttileState createState() => _PosttileState();
+  _PosttileState createState() => _PosttileState(
+      caption: post.caption,
+      likes: post.likes,
+      postId: post.postId,
+      posturl: post.posturl,
+      uid: post.uid,
+      username: post.username,
+      likeCount: post.getLikeCount(post.likes),
+      usercurrent: usermodel.uid
+      );
 }
 
-class _PosttileState extends State<Posttile> {
+class _PosttileState extends State<Posttile>   {
+  
+  final String caption;
+  final String posturl;
+  final String postId;
+  final String uid;
+  final String username;
+  dynamic likes;
+  int likeCount;
+  bool isLiked;
+  final String usercurrent;
+
+  _PosttileState(
+      {this.caption,
+      this.posturl,
+      this.postId,
+      this.uid,
+      this.username,
+      this.likes,
+      this.likeCount,
+      this.usercurrent
+      });
+
+  handleLikePost() {
+    bool _isLiked = likes[usercurrent] == true;
+
+    if (_isLiked) {
+      FirebaseFirestore.instance
+          .collection('Posts')
+          .doc(widget.post.postId)
+          .update({'likes.$usercurrent': false});
+      setState(() {
+        likeCount -= 1;
+        isLiked = false;
+        likes[usercurrent] = false;
+      });
+    } else if (!_isLiked) {
+      FirebaseFirestore.instance
+          .collection('Posts')
+          .doc(widget.post.postId)
+          .update({'likes.$usercurrent': true});
+      setState(() {
+        likeCount += 1;
+        isLiked = true;
+        likes[usercurrent] = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+ 
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,7 +111,7 @@ class _PosttileState extends State<Posttile> {
                     builder: (context) => ProfileFreelancer(
                           post: widget.post,
                           usermodel: widget.usermodel,
-                          postuser:widget.userpost,
+                          postuser: widget.userpost,
                           database: widget.database,
                         )),
               );
@@ -58,7 +122,7 @@ class _PosttileState extends State<Posttile> {
             ),
           ),
           subtitle: Text(
-           widget.userpost.location,
+            widget.userpost.location,
             style: posttitlesub,
           ),
           trailing: IconButton(
@@ -77,6 +141,10 @@ class _PosttileState extends State<Posttile> {
               padding: EdgeInsets.all(0.0),
               child: child,
             );
+          },
+          errorBuilder:
+              (BuildContext context, Object exception, StackTrace stackTrace) {
+            return Text('Your error widget...');
           },
           loadingBuilder: (BuildContext context, Widget child,
               ImageChunkEvent loadingProgress) {
@@ -104,14 +172,15 @@ class _PosttileState extends State<Posttile> {
         ListTile(
           contentPadding: EdgeInsets.symmetric(horizontal: 0.0),
           leading: IconButton(
-              iconSize: 30,
-              icon: Icon(
-                Icons.star_border_sharp,
-                color: kstartcolour,
-              ),
-              onPressed: () {}),
+            iconSize: 30,
+            icon: Icon(
+                 likes[usercurrent] == true? Icons.star : Icons.star_border,
+              color: kstartcolour,
+            ),
+            onPressed: handleLikePost,
+          ),
           title: Text(
-            '150 Clicks',
+            '$likeCount Clicks',
             style: paragraphmedium2,
           ),
           horizontalTitleGap: 1,

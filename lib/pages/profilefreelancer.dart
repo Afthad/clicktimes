@@ -41,11 +41,11 @@ class _ProfileFreelancerState extends State<ProfileFreelancer> {
                 backgroundColor: Colors.grey,
                 backgroundImage: NetworkImage(widget.postuser.profile),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(68, 68, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(69, 69, 0, 0),
                   child: Icon(
                     Icons.circle,
                     size: 17,
-                    color: kSuccessColorPayment,
+                    color: widget.postuser.available==true? kSuccessColorPayment:danger,
                   ),
                 ),
               ),

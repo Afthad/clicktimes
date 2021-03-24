@@ -13,11 +13,9 @@ class ShimmerPostGrid extends StatefulWidget {
 class _ShimmerPostGridState extends State<ShimmerPostGrid> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Container(
-        height: double.infinity,
-        child: Padding(
+    return 
+   
+        Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -46,8 +44,7 @@ class _ShimmerPostGridState extends State<ShimmerPostGrid> {
               ),
             ],
           ),
-        ),
-      ),
+      
     );
   }
 }

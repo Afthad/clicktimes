@@ -42,16 +42,16 @@ class _ProfileState extends State<Profile> {
                       child: Icon(
                         Icons.circle,
                         size: 17,
-                        color: kSuccessColorPayment,
+                        color: widget.usermodel.available==true? kSuccessColorPayment:danger,
                       ),
                     ),
                   ),
-                  if (widget.usermodel.role == 'Freelancer') ...[
+                  if (widget.usermodel.role == 'Freelancer' && widget.usermodel.available==true) ...[
                     SizedBox(
                       height: 3,
                     ),
                     Text(
-                      widget.usermodel.name,
+                      'Available',
                       style: paragraphmedium4,
                     )
                   ],

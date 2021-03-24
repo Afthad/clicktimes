@@ -1,4 +1,5 @@
 import 'package:clicktimes/widgets/shimmer.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 
@@ -15,7 +16,7 @@ class PostListItemsBuilder<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (snapshot.hasData) {
+    if (snapshot.hasData ) {
       final List<T> items = snapshot.data;
       if (items.isNotEmpty) {
         return _buildList(items);
@@ -30,13 +31,12 @@ class PostListItemsBuilder<T> extends StatelessWidget {
 
   Widget _buildList(List<T> items) {
     return ListView.separated(
-      itemCount: items.length + 2,
+      dragStartBehavior: DragStartBehavior.start,
+      itemCount: items.length,
       separatorBuilder: (context, index) => Divider(height: 0.5),
       itemBuilder: (context, index) {
-        if (index == 0 || index == items.length + 1) {
-          return Container();
-        }
-        return itemBuilder(context, items[index - 1]);
+     
+        return itemBuilder(context, items[index]);
       },
     );
   }

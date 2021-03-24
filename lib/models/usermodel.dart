@@ -11,13 +11,13 @@ final String phone;
 final String role;
 final String website;
 final String about;
+final bool available;
+final String email;
 
-  Usermodel({ @required this.about, @required this.name, @required this.uid,@required this.location,@required this.profile,@required this.phone, @required this.role,@required this.website});
+  Usermodel( {@required this.email, this.available, @required this.about, @required this.name, @required this.uid,@required this.location,@required this.profile,@required this.phone, @required this.role,@required this.website});
 
  factory Usermodel.fromMap(Map<String, dynamic> data, String documentId){
-   if(data==null){
-     return null;
-   }
+   
 
  final String name = data['name'];
 final String uid = data['uid'];
@@ -27,7 +27,9 @@ final String phone = data['phone'];
 final String role = data['role'];
 final String website = data['website'];
 final String about = data['about'];
-return Usermodel(about: about, name: name, uid: uid, location: location, profile: profile, phone: phone, role: role, website: website);
+final bool available =data['available'];
+final String email=data['email'];
+return Usermodel(about: about, name: name, uid: uid, location: location, profile: profile, phone: phone, role: role, website: website,available:available,email: email);
 
  }
   Map<String, dynamic> toMap(){
@@ -39,7 +41,9 @@ return Usermodel(about: about, name: name, uid: uid, location: location, profile
       'role' :role,
       'website':website,
       'about':about,
-      'profile':profile
+      'profile':profile,
+      'available':available,
+      'email':email,
 
     };
 }

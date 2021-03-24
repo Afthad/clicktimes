@@ -14,6 +14,7 @@ abstract class Database {
   Stream<Usermodel> userStream({@required String uid});
   Stream<List<Post>> postStream();
   Stream<List<Post>> selectedpostStream({@required String userid});
+  Future<void> updateUser(Usermodel usermodel);
   // Future<void> setEntry(Entry entry);
   // Future<void> deleteEntry(Entry entry);
   // Stream<List<Entry>> entriesStream({Job job});
@@ -30,6 +31,14 @@ class FirestoreDatabase implements Database {
 
   @override
   Future<void> setUser(Usermodel usermodel) async => await _service.setData(
+        path: APIPath.user(
+          uid,
+        ),
+        data: usermodel.toMap(),
+      );
+
+        @override
+  Future<void> updateUser(Usermodel usermodel) async => await _service.setData(
         path: APIPath.user(
           uid,
         ),

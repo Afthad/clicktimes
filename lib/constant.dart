@@ -8,7 +8,7 @@ const kSuccessColorPaymentvalue =Color(0xFF1AAA52);
 const kSecondary =Color(0xFF6690FF);
 const kPrimaryLight=Color(0xFFF2F2F5);
 const kPrimaryText=Color(0xFF254EDA);
-
+const danger=Color(0xFFFF4539);
 const kSecondarylight=Color(0xFFFAFAFC);
 const dividerprofile=Color(0xFFC7C8D9);
 const hirebuttoncolour=Color(0xFFE2E7FF);

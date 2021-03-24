@@ -23,7 +23,8 @@ class _LoginpageState extends State<Loginpage> {
           mainAxisAlignment:MainAxisAlignment.center,
     
           children: [
-          ///  SvgPicture.asset('images/logo.svg',),
+           SvgPicture.asset('images/logo.svg',height: 70,fit: BoxFit.fill,),
+            SizedBox(height: 10,),
             Text('Click Times',style: kHeading,),
             SizedBox(height: 20,),
             Padding(
