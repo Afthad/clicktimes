@@ -2,6 +2,7 @@ import 'package:clicktimes/constant.dart';
 import 'package:clicktimes/models/postmodel.dart';
 import 'package:clicktimes/models/usermodel.dart';
 import 'package:clicktimes/services/database.dart';
+import 'package:clicktimes/services/messageservice.dart';
 import 'package:clicktimes/widgets/postgridlist.dart';
 import 'package:clicktimes/widgets/profilecontents.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ class ProfileFreelancer extends StatefulWidget {
 }
 
 class _ProfileFreelancerState extends State<ProfileFreelancer> {
+  MessageService _service =MessageService();
   List list = ['Posts', 'About'];
   int index = 0;
   @override
@@ -97,7 +99,9 @@ class _ProfileFreelancerState extends State<ProfileFreelancer> {
                 width: 8,
               ),
               MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+               _service.createRoomMessage(context, widget.database, widget.usermodel.uid, widget.postuser.uid);
+                  },
                   child: Text(
                     'Message',
                     style: paragraphmedium,

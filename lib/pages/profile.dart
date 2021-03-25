@@ -1,5 +1,6 @@
 import 'package:clicktimes/constant.dart';
 import 'package:clicktimes/models/usermodel.dart';
+import 'package:clicktimes/services/auth.dart';
 import 'package:clicktimes/services/database.dart';
 import 'package:clicktimes/widgets/profilecontents.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,7 +18,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-   
+   final auth =Provider.of<AuthBase>(context);
           return SingleChildScrollView(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -140,8 +141,16 @@ class _ProfileState extends State<Profile> {
                   Profilecontents(
                       contentname: 'Website',
                       content: widget.usermodel.website),
-                ]
                 ],
+                IconButton(icon: Icon(Icons.logout), onPressed: (){
+                              auth.signOut();
+                })
+
+
+
+                ],
+
+              
                 ),
           );
   

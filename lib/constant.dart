@@ -21,7 +21,7 @@ const kHeading = TextStyle(
   color: kPrimaryText,
   fontFamily: 'Inter'
 );
-
+const kchatbackground =Color(0xFFE4E4E4);
 
 const paragraphmedium = TextStyle(
   fontSize: 14,

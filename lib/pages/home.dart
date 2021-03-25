@@ -12,6 +12,7 @@ import 'package:flutter_svg/parser.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
+import 'chatroom.dart';
 import 'homeScaffold.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
       FTabItem.post: (_) {
         return Container();
       },
-      FTabItem.message: (_) => Container(),
+      FTabItem.message: (_) => ChatRoom(),
       FTabItem.profile: (_) {
         
         return Profile(
@@ -66,7 +67,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.white,
           elevation: 0.5,
           leading: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(16.0),
             child: SvgPicture.asset(
               'images/logo.svg',
           
