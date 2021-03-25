@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:clicktimes/models/hiremodel.dart';
 import 'package:clicktimes/models/postmodel.dart';
 import 'package:clicktimes/models/usermodel.dart';
 
@@ -15,6 +16,7 @@ abstract class Database {
   Stream<List<Post>> postStream();
   Stream<List<Post>> selectedpostStream({@required String userid});
   Future<void> updateUser(Usermodel usermodel);
+  Future<void> setHire(Hire hire);
   // Future<void> setEntry(Entry entry);
   // Future<void> deleteEntry(Entry entry);
   // Stream<List<Entry>> entriesStream({Job job});
@@ -35,6 +37,10 @@ class FirestoreDatabase implements Database {
           uid,
         ),
         data: usermodel.toMap(),
+      );
+ Future<void> setHire(Hire hire) async => await _service.setData(
+        path: APIPath.setHire(documentIdFromCurrentDate()),
+        data: hire.toMap(),
       );
 
         @override

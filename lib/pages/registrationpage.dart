@@ -103,6 +103,7 @@ action: SnackBarAction(label: 'Undo', onPressed: (){}),
     if (_validateAndSaveForm()) {
       try {
         final usermodel = Usermodel(
+          
             about: selectedworkList!=null? selectedworkList.join(','):'null',
             profile:'dddd' ,
             phone: phone,

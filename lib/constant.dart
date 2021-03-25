@@ -29,6 +29,12 @@ const paragraphmedium = TextStyle(
   color: Colors.white,
   fontFamily: 'Inter'
 );
+const paragraphmediumhr = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w600,
+  color: kPrimaryColor,
+  fontFamily: 'Inter'
+);
 const frcu = TextStyle(
   fontSize: 10,
   fontWeight: FontWeight.normal,
@@ -102,7 +108,18 @@ const porofiletitlename = TextStyle(
   color: Colors.black,
   fontFamily: 'Inter'
 );
-
+const hiretitlename = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w700,
+  color: Colors.black,
+  fontFamily: 'Inter'
+);
+const hiresubtitlename = TextStyle(
+  fontSize: 15,
+  fontWeight: FontWeight.w700,
+  color: kPrimaryColor,
+  fontFamily: 'Inter'
+);
 const posttitlesub = TextStyle(
   fontSize: 10,
   fontWeight: FontWeight.w400,

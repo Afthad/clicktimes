@@ -1,11 +1,14 @@
 import 'package:clicktimes/constant.dart';
 import 'package:clicktimes/models/postmodel.dart';
 import 'package:clicktimes/models/usermodel.dart';
+import 'package:clicktimes/pages/hirepage.dart';
 import 'package:clicktimes/pages/profilefreelancer.dart';
 import 'package:clicktimes/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'Hirepag.dart';
 
 class Posttile extends StatefulWidget {
   final Post post;
@@ -187,7 +190,9 @@ class _PosttileState extends State<Posttile>   {
           trailing: Padding(
             padding: const EdgeInsets.all(8.0),
             child: MaterialButton(
-              onPressed: () {},
+              onPressed: () =>
+                Hirepage.show(context, widget.database, widget.usermodel, widget.userpost),
+              
               child: Text(
                 'Hire',
                 style: hirebutton,
