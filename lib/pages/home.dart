@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
       FTabItem.post: (_) {
         return Container();
       },
-      FTabItem.message: (_) => ChatRoom(),
+      FTabItem.message: (_) => ChatRoom(usermodel: widget.usermodel,),
       FTabItem.profile: (_) {
         
         return Profile(

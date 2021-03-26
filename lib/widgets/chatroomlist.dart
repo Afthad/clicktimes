@@ -1,4 +1,5 @@
 import 'package:clicktimes/widgets/shimmer.dart';
+import 'package:clicktimes/widgets/shimmerchatroom.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -21,12 +22,12 @@ class ChatRoomsListItemsBuilder<T> extends StatelessWidget {
       if (items.isNotEmpty) {
         return _buildList(items);
       } else {
-        return ShimmerPost(itemcount: 4,);
+        return ShimmerChatroom (itemcount: 9,);
       }
     } else if (snapshot.hasError) {
-      return Text(snapshot.error.toString());
+      return ShimmerChatroom (itemcount: 9,);
     }
-    return ShimmerPost(itemcount: 4,);
+    return ShimmerChatroom (itemcount: 9,);
   }
 
   Widget _buildList(List<T> items) {
