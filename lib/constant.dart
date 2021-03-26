@@ -114,6 +114,12 @@ const hiretitlename = TextStyle(
   color: Colors.black,
   fontFamily: 'Inter'
 );
+const chatroomtitle = TextStyle(
+  fontSize: 27,
+  fontWeight: FontWeight.w700,
+  color: Colors.black,
+  fontFamily: 'Inter'
+);
 const hiresubtitlename = TextStyle(
   fontSize: 15,
   fontWeight: FontWeight.w700,

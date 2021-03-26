@@ -104,6 +104,7 @@ action: SnackBarAction(label: 'Undo', onPressed: (){}),
       try {
         final usermodel = Usermodel(
           
+          
             about: selectedworkList!=null? selectedworkList.join(','):'null',
             profile:'dddd' ,
             phone: phone,

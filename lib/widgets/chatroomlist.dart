@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 
 typedef ItemWidgetBuilder<T> = Widget Function(BuildContext context, T item);
 
-class ChatListItemsBuilder<T> extends StatelessWidget {
-  const ChatListItemsBuilder({
+class ChatRoomsListItemsBuilder<T> extends StatelessWidget {
+  const ChatRoomsListItemsBuilder({
     Key key,
     @required this.snapshot,
     @required this.itemBuilder,
@@ -24,21 +24,20 @@ class ChatListItemsBuilder<T> extends StatelessWidget {
         return ShimmerPost(itemcount: 4,);
       }
     } else if (snapshot.hasError) {
-      return Container(child:Text(snapshot.error.toString()),);
+      return Text(snapshot.error.toString());
     }
     return ShimmerPost(itemcount: 4,);
   }
 
   Widget _buildList(List<T> items) {
-    
-    return ListView.builder(
-      reverse: true,
-      dragStartBehavior: DragStartBehavior.start,
-      itemCount: items.length,
-     //separatorBuilder: (context, index) => Divider(height: 0.5),
+     return ListView.separated(
+      itemCount: items.length + 2,
+      separatorBuilder: (context, index) => Divider(height: 0.5),
       itemBuilder: (context, index) {
-     
-        return itemBuilder(context, items[index]);
+        if (index == 0 || index == items.length + 1) {
+          return Container();
+        }
+        return itemBuilder(context, items[index - 1]);
       },
     );
   }

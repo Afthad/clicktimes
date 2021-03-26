@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:clicktimes/models/chatmodel.dart';
 import 'package:clicktimes/models/chatroommodel.dart';
+import 'package:clicktimes/models/chatroomo.dart';
 import 'package:clicktimes/models/hiremodel.dart';
 import 'package:clicktimes/models/postmodel.dart';
 import 'package:clicktimes/models/usermodel.dart';
+import 'package:clicktimes/pages/chatroom.dart';
 
 import 'package:meta/meta.dart';
 import 'apipath.dart';
@@ -19,6 +22,9 @@ abstract class Database {
   Future<void> updateUser(Usermodel usermodel);
   Future<void> setHire(Hire hire);
     Future<void> createChatRoom(String chatRoomId,ChatRoomModel chatRoomModel);
+    Stream<List<Chats>> chatsStreams(String chatRoomId);
+   Stream<List<ChatRoomModelother>> chatRoomget();
+   Stream<List<ChatRoomModel>> chatRoomstreams();
   // Future<void> setEntry(Entry entry);
   // Future<void> deleteEntry(Entry entry);
   // Stream<List<Entry>> entriesStream({Job job});
@@ -59,7 +65,13 @@ class FirestoreDatabase implements Database {
         ),
         data: usermodel.toMap(),
       );
+  @override
+  Stream<List<Chats>> chatsStreams(String chatRoomId) => _service.collectionStream(
+        path: APIPath.chatStream(chatRoomId),
+        builder: (data, documentId) => Chats.fromMap(data,documentId),
+        queryBuilder: (query) => query.orderBy('time',descending: true),
 
+      );
   // @override
   // Future<void> deleteJob(Job job) async {
   //   // delete where entry.jobId == job.jobId
@@ -79,8 +91,20 @@ class FirestoreDatabase implements Database {
         path: APIPath.user(uid),
         builder: (data, documentId) => Usermodel.fromMap(data, documentId),
       );
+      @override
+  Stream<List<ChatRoomModelother>> chatRoomget() => _service.collectionStream(
+        path: APIPath.chatRoomStream(),
+        builder: (data, documentId) => ChatRoomModelother.fromMap(data, documentId),
+      );
 
 
+           @override
+  Stream<List<ChatRoomModel>> chatRoomstreams() => _service.collectionStream(
+        path: APIPath.chatRoomStream(),
+        builder: (data, documentId) => ChatRoomModel.fromMap(data, documentId),
+        queryBuilder: (query) => query.where('users',arrayContains:uid)
+        ,
+      );
   @override
   Stream<List<Post>> postStream() => _service.collectionStream(
         path: APIPath.post(),
