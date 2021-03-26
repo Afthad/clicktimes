@@ -1,6 +1,7 @@
 
 
 import 'package:clicktimes/pages/selctorpage.dart';
+import 'package:clicktimes/pages/splashscreen.dart';
 import 'package:clicktimes/services/auth.dart';
 import 'package:clicktimes/pages/registrationpage.dart';
 import 'package:clicktimes/pages/loginpage.dart';
@@ -28,11 +29,7 @@ class LandingPage extends StatelessWidget {
               child: Selectorpage(uid:user.uid)
             );;
           } else {
-            return Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
+            return SplashScreen();
           }
         });
   }

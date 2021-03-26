@@ -21,14 +21,17 @@ abstract class Database {
   Stream<List<Post>> selectedpostStream({@required String userid});
   Future<void> updateUser(Usermodel usermodel);
   Future<void> setHire(Hire hire);
-    Future<void> createChatRoom(String chatRoomId,ChatRoomModel chatRoomModel);
-    Stream<List<Chats>> chatsStreams(String chatRoomId);
-   Stream<List<ChatRoomModelother>> chatRoomget();
-   Stream<List<ChatRoomModel>> chatRoomstreams();
+  Future<void> createChatRoom(String chatRoomId, ChatRoomModel chatRoomModel);
+  Stream<List<Chats>> chatsStreams(String chatRoomId);
+  Stream<List<ChatRoomModelother>> chatRoomget();
+  Stream<List<ChatRoomModel>> chatRoomstreams();
+  Future<void> addChats(Chats chats, String chatRoomId);
+Future<void> addpost(Post post,String postid);
+  Stream<List<Usermodel>> getuser();
   // Future<void> setEntry(Entry entry);
   // Future<void> deleteEntry(Entry entry);
   // Stream<List<Entry>> entriesStream({Job job});
-    
+
 }
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
@@ -46,19 +49,34 @@ class FirestoreDatabase implements Database {
         ),
         data: usermodel.toMap(),
       );
-        @override
-  Future<void> createChatRoom(String chatRoomId,ChatRoomModel chatRoomModel) async => await _service.setData(
+  @override
+  Future<void> addChats(Chats chats, String chatRoomId) async =>
+      await _service.setData(
+        path: APIPath.addchats(
+          chatRoomId,documentIdFromCurrentDate() 
+        ),
+        data: chats.toMap(),
+      );
+  @override
+  Future<void> createChatRoom(
+          String chatRoomId, ChatRoomModel chatRoomModel) async =>
+      await _service.setData(
         path: APIPath.createChatRoom(
           chatRoomId,
         ),
         data: chatRoomModel.toMap(),
       );
- Future<void> setHire(Hire hire) async => await _service.setData(
+  Future<void> setHire(Hire hire) async => await _service.setData(
         path: APIPath.setHire(documentIdFromCurrentDate()),
         data: hire.toMap(),
       );
 
-        @override
+      @override
+ Future<void> addpost(Post post,String postid) async => await _service.setData(
+        path: APIPath.postadd(postid),
+        data: post.toMap(),
+      );
+  @override
   Future<void> updateUser(Usermodel usermodel) async => await _service.setData(
         path: APIPath.user(
           uid,
@@ -66,11 +84,11 @@ class FirestoreDatabase implements Database {
         data: usermodel.toMap(),
       );
   @override
-  Stream<List<Chats>> chatsStreams(String chatRoomId) => _service.collectionStream(
+  Stream<List<Chats>> chatsStreams(String chatRoomId) =>
+      _service.collectionStream(
         path: APIPath.chatStream(chatRoomId),
-        builder: (data, documentId) => Chats.fromMap(data,documentId),
-        queryBuilder: (query) => query.orderBy('time',descending: true),
-
+        builder: (data, documentId) => Chats.fromMap(data, documentId),
+        queryBuilder: (query) => query.orderBy('time', descending: true),
       );
   // @override
   // Future<void> deleteJob(Job job) async {
@@ -91,19 +109,24 @@ class FirestoreDatabase implements Database {
         path: APIPath.user(uid),
         builder: (data, documentId) => Usermodel.fromMap(data, documentId),
       );
-      @override
+  @override
   Stream<List<ChatRoomModelother>> chatRoomget() => _service.collectionStream(
         path: APIPath.chatRoomStream(),
-        builder: (data, documentId) => ChatRoomModelother.fromMap(data, documentId),
+        builder: (data, documentId) =>
+            ChatRoomModelother.fromMap(data, documentId),
+      );
+       @override
+  Stream<List<Usermodel>> getuser() => _service.collectionStream(
+        path: APIPath.userget(),
+        builder: (data, documentId) =>
+            Usermodel.fromMap(data, documentId),
       );
 
-
-           @override
+  @override
   Stream<List<ChatRoomModel>> chatRoomstreams() => _service.collectionStream(
         path: APIPath.chatRoomStream(),
         builder: (data, documentId) => ChatRoomModel.fromMap(data, documentId),
-        queryBuilder: (query) => query.where('users',arrayContains:uid)
-        ,
+        queryBuilder: (query) => query.where('users', arrayContains: uid),
       );
   @override
   Stream<List<Post>> postStream() => _service.collectionStream(
@@ -111,10 +134,11 @@ class FirestoreDatabase implements Database {
         builder: (data, documentId) => Post.fromMap(data, documentId),
       );
   @override
-  Stream<List<Post>> selectedpostStream({@required String userid}) => _service.collectionStream(
+  Stream<List<Post>> selectedpostStream({@required String userid}) =>
+      _service.collectionStream(
         path: APIPath.post(),
         builder: (data, documentId) => Post.fromMap(data, documentId),
-        queryBuilder: (query) =>  query.where('uid', isEqualTo:userid ),
+        queryBuilder: (query) => query.where('uid', isEqualTo: userid),
       );
   // @override
   // Future<void> setEntry(Entry entry) async => await _service.setData(

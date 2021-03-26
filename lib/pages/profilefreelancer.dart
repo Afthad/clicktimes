@@ -100,7 +100,7 @@ class _ProfileFreelancerState extends State<ProfileFreelancer> {
               ),
               MaterialButton(
                   onPressed: () {
-               _service.createRoomMessage(context, widget.database, widget.usermodel.uid, widget.postuser.uid);
+               _service.createRoomMessage(context, widget.database, widget.usermodel, widget.postuser);
                   },
                   child: Text(
                     'Message',

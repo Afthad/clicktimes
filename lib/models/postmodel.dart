@@ -6,7 +6,7 @@ class Post {
   final String postId;
   final String uid;
   final String username;
-  final dynamic likes;
+  final Map<String,dynamic> likes;
 
 
   Post(
@@ -22,7 +22,7 @@ class Post {
     final String postId = data['postId'];
     final String uid = data['uid'];
     final String username = data['username'];
-    final dynamic likes = data['likes'];
+    final Map<String,dynamic>likes = data['likes'];
     return Post(
         caption: caption,
         posturl: posturl,
@@ -53,7 +53,7 @@ class Post {
       'posturl': posturl,
       'uid': uid,
       'username': username,
-      'likes': {}
+      'likes': likes,
     };
   }
 }

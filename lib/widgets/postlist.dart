@@ -16,6 +16,7 @@ class PostListItemsBuilder<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     if (snapshot.hasData ) {
       final List<T> items = snapshot.data;
       if (items.isNotEmpty) {
@@ -24,16 +25,19 @@ class PostListItemsBuilder<T> extends StatelessWidget {
         return ShimmerPost(itemcount: 4,);
       }
     } else if (snapshot.hasError) {
-      return ShimmerPost(itemcount: 4,);
+      return Text(snapshot.error.toString());
     }
     return ShimmerPost(itemcount: 4,);
   }
 
   Widget _buildList(List<T> items) {
-    return ListView.separated(
-      dragStartBehavior: DragStartBehavior.start,
+      ScrollController _controller = new ScrollController();
+    return ListView.builder(
+     physics: AlwaysScrollableScrollPhysics(),
+     cacheExtent: 10,
       itemCount: items.length,
-      separatorBuilder: (context, index) => Divider(height: 0.5),
+      controller: _controller,
+      //separatorBuilder: (context, index) => Divider(height: 0.5),
       itemBuilder: (context, index) {
      
         return itemBuilder(context, items[index]);

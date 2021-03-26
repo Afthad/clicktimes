@@ -4,6 +4,7 @@ import 'package:clicktimes/models/usermodel.dart';
 import 'package:clicktimes/pages/hirepage.dart';
 import 'package:clicktimes/pages/profilefreelancer.dart';
 import 'package:clicktimes/services/database.dart';
+import 'package:clicktimes/services/messageservice.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -37,13 +38,13 @@ class Posttile extends StatefulWidget {
 }
 
 class _PosttileState extends State<Posttile>   {
-  
+  MessageService _service =MessageService();
   final String caption;
   final String posturl;
   final String postId;
   final String uid;
   final String username;
-  dynamic likes;
+  Map<String,dynamic> likes;
   int likeCount;
   bool isLiked;
   final String usercurrent;
@@ -130,7 +131,10 @@ class _PosttileState extends State<Posttile>   {
           ),
           trailing: IconButton(
               icon: SvgPicture.asset('images/Messageout.svg'),
-              onPressed: () {}),
+              onPressed: () {
+
+                  _service.createRoomMessage(context, widget.database, widget.usermodel, widget.userpost);
+              }),
         ),
         SizedBox(
           height: 5,

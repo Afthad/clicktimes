@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:clicktimes/models/usermodel.dart';
@@ -24,10 +25,11 @@ class _RegistrationpageState extends State<Registrationpage> {
   File _imageFile;
   final picker = ImagePicker();
 
-  _RegistrationpageState();
+ 
 
   /// Cropper plugin
   Future<void> _getImage() async {
+    try{
     final pickedFile = await picker.getImage(
         source: ImageSource.gallery,
         imageQuality: 85,
@@ -49,6 +51,9 @@ class _RegistrationpageState extends State<Registrationpage> {
     setState(() {
       _imageFile = cropped;
     });
+    }catch(e){
+
+    }
   }
 
   /// Remove image
@@ -65,6 +70,7 @@ class _RegistrationpageState extends State<Registrationpage> {
   String role;
   String website;
   String about ='';
+  String email;
 
   String freelancerText =
       "Free lancers provide services like Photography, Video Editing, Graphic Design, Camera Renting";
@@ -79,6 +85,11 @@ class _RegistrationpageState extends State<Registrationpage> {
     "Graphic Design"
   ];
   List<String> selectedworkList = [];
+  final snackBaremail=SnackBar(content: Text('Email already used'),
+
+action: SnackBarAction(label: 'Undo', onPressed: (){}),
+
+);
 final snackBar=SnackBar(content: Text('Role not Selected'),
 
 action: SnackBarAction(label: 'Undo', onPressed: (){}),
@@ -102,9 +113,11 @@ action: SnackBarAction(label: 'Undo', onPressed: (){}),
   Future<void> _submit(Database database) async {
     if (_validateAndSaveForm()) {
       try {
+            final users= await database.getuser().first;
+    final allusers = users.map((users) => users.email).toList();
+    if(!allusers.contains(email)){
         final usermodel = Usermodel(
-          
-          
+            email: email,     
             about: selectedworkList!=null? selectedworkList.join(','):'null',
             profile:'dddd' ,
             phone: phone,
@@ -114,7 +127,8 @@ action: SnackBarAction(label: 'Undo', onPressed: (){}),
             location: location,
             name: name);
         await database.setUser(usermodel);
-       
+        }
+        else ScaffoldMessenger.of(context).showSnackBar(snackBaremail);
        
       } catch (e) {
         print(e);
@@ -260,6 +274,38 @@ Future<String> uploadImageToFirebase() async {
       SizedBox(
         height: 10,
       ),
+
+
+
+        Text(
+        'Your Email',
+        style: formheading,
+      ),
+      Divider(),
+      TextFormField(autofocus: false,
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(10),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(color: Colors.grey, width: .5),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(color: Colors.grey, width: .5),
+            ),
+            hintText: 'Email',
+            hintStyle: paragraphmedium1,
+            fillColor: Colors.white,
+            filled: true),
+        keyboardType: TextInputType.emailAddress,
+        validator: (value) =>
+            value.isNotEmpty ? null : 'Email can\'t be empty',
+        onSaved: (value) => email = value,
+      ),
+      SizedBox(
+        height: 10,
+      ),
+
       Text(
         'Your Location',
         style: formheading,

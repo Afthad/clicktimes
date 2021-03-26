@@ -9,15 +9,18 @@ class Chats{
   final String sendBy;
   final  Timestamp time;
 
-  Chats({ @required this.message,@required this.sendBy,@required this.time});
+  
+
+  Chats({  @required this.message,@required this.sendBy,@required this.time, });
 
 
   factory Chats.fromMap(Map<String,dynamic>data,String documentID){
+   
    final String message=data['message'];
   final String sendBy=data['sendBy'];
   final  Timestamp time=data['time'];
 
- return Chats(message: message, sendBy: sendBy, time: time);
+ return Chats(message: message, sendBy: sendBy, time: time,);
   }
 
    Map<String, dynamic> toMap() {
@@ -26,6 +29,7 @@ class Chats{
            'message':message,
            'sendBy':sendBy,
            'time':time,
+  
      };
    }
 }

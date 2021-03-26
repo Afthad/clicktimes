@@ -15,6 +15,7 @@ const hirebuttoncolour=Color(0xFFE2E7FF);
 const kSubtitle =Color(0xFF8E90A6);
 const kparacolor=Color(0xFF555770);
 const kstartcolour =Color(0xFFFFEC3A);
+const kdialoghead=Color(0xFF2F7CD8);
 const kHeading = TextStyle(
   fontSize: 25,
   fontWeight: FontWeight.w700,
@@ -48,6 +49,13 @@ const paragraphmedium10 = TextStyle(
   color: Colors.white,
   fontFamily: 'Inter'
 );
+const neW = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.w500,
+  
+  color: Colors.white,
+  fontFamily: 'Inter'
+);
 const paragraphmedium4 = TextStyle(
   fontSize: 12,
   fontWeight: FontWeight.w400,
@@ -76,6 +84,12 @@ const headerappbar = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.w700,
   color: kPrimaryColor,
+  fontFamily: 'Inter'
+);
+const dialoghead = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w700,
+  color: kdialoghead,
   fontFamily: 'Inter'
 );
 const prodilecontent1 = TextStyle(
@@ -126,6 +140,18 @@ const hiresubtitlename = TextStyle(
   color: kPrimaryColor,
   fontFamily: 'Inter'
 );
+const upload = TextStyle(
+  fontSize: 17,
+  fontWeight: FontWeight.w700,
+  color: Colors.black,
+  fontFamily: 'Inter'
+);
+const times = TextStyle(
+  fontSize: 10,
+  fontWeight: FontWeight.w700,
+  color: Colors.grey,
+  fontFamily: 'Inter'
+);
 const posttitlesub = TextStyle(
   fontSize: 10,
   fontWeight: FontWeight.w400,
@@ -136,5 +162,11 @@ const hirebutton = TextStyle(
   fontSize: 12,
   fontWeight: FontWeight.w400,
   color: kPrimaryColor,
+  fontFamily: 'Inter'
+);
+const timechat = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.w400,
+  color: dividerprofile,
   fontFamily: 'Inter'
 );

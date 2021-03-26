@@ -21,12 +21,12 @@ class ChatListItemsBuilder<T> extends StatelessWidget {
       if (items.isNotEmpty) {
         return _buildList(items);
       } else {
-        return ShimmerPost(itemcount: 4,);
+        return Text('No Chats');
       }
     } else if (snapshot.hasError) {
       return Container(child:Text(snapshot.error.toString()),);
     }
-    return ShimmerPost(itemcount: 4,);
+    return Text('Something Went Wrong');
   }
 
   Widget _buildList(List<T> items) {
@@ -35,6 +35,7 @@ class ChatListItemsBuilder<T> extends StatelessWidget {
       reverse: true,
       dragStartBehavior: DragStartBehavior.start,
       itemCount: items.length,
+      
      //separatorBuilder: (context, index) => Divider(height: 0.5),
       itemBuilder: (context, index) {
      
