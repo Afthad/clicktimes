@@ -151,7 +151,13 @@ class _PosttileState extends State<Posttile>   {
           },
           errorBuilder:
               (BuildContext context, Object exception, StackTrace stackTrace) {
-            return Text('Your error widget...');
+            return Container(
+              height: 250,
+              width: MediaQuery.of(context).size.width,
+              child: Center(child: Icon(Icons.error)),
+
+            
+            );
           },
           loadingBuilder: (BuildContext context, Widget child,
               ImageChunkEvent loadingProgress) {

@@ -74,6 +74,12 @@ const paragraphmedium2 = TextStyle(
   color: Colors.black,
   fontFamily: 'Inter'
 );
+const nobookings = TextStyle(
+  fontSize: 21,
+  fontWeight: FontWeight.w400,
+  color: Colors.grey,
+  fontFamily: 'Inter'
+);
 const paragraphmedium5 = TextStyle(
   fontSize: 12,
   fontWeight: FontWeight.w400,
@@ -90,6 +96,12 @@ const dialoghead = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.w700,
   color: kdialoghead,
+  fontFamily: 'Inter'
+);
+const dialogbookandhire = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w400,
+  color: Colors.black,
   fontFamily: 'Inter'
 );
 const prodilecontent1 = TextStyle(

@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:clicktimes/models/booking.dart';
 import 'package:clicktimes/models/chatmodel.dart';
 import 'package:clicktimes/models/chatroommodel.dart';
 import 'package:clicktimes/models/chatroomo.dart';
 import 'package:clicktimes/models/hiremodel.dart';
 import 'package:clicktimes/models/postmodel.dart';
 import 'package:clicktimes/models/usermodel.dart';
+import 'package:clicktimes/pages/addbooking.dart';
 import 'package:clicktimes/pages/chatroom.dart';
 
 import 'package:meta/meta.dart';
@@ -21,6 +23,7 @@ abstract class Database {
   Stream<List<Post>> selectedpostStream({@required String userid});
   Future<void> updateUser(Usermodel usermodel);
   Future<void> setHire(Hire hire);
+  Future<void> setBooking(Bookingmodel booking,String orderid);
   Future<void> createChatRoom(String chatRoomId, ChatRoomModel chatRoomModel);
   Stream<List<Chats>> chatsStreams(String chatRoomId);
   Stream<List<ChatRoomModelother>> chatRoomget();
@@ -28,6 +31,9 @@ abstract class Database {
   Future<void> addChats(Chats chats, String chatRoomId);
 Future<void> addpost(Post post,String postid);
   Stream<List<Usermodel>> getuser();
+  Future<void> deleteUser();
+    Stream<List<Bookingmodel>> bookingstream();
+     Future<void>deleteBooking(String orderid);
   // Future<void> setEntry(Entry entry);
   // Future<void> deleteEntry(Entry entry);
   // Stream<List<Entry>> entriesStream({Job job});
@@ -66,10 +72,17 @@ class FirestoreDatabase implements Database {
         ),
         data: chatRoomModel.toMap(),
       );
+      @override
   Future<void> setHire(Hire hire) async => await _service.setData(
         path: APIPath.setHire(documentIdFromCurrentDate()),
         data: hire.toMap(),
       );
+   @override
+  Future<void> setBooking(Bookingmodel booking,String orderid) async => await _service.setData(
+        path: APIPath.addbookings(orderid),
+        data: booking.toMap(),
+      );
+
 
       @override
  Future<void> addpost(Post post,String postid) async => await _service.setData(
@@ -90,6 +103,14 @@ class FirestoreDatabase implements Database {
         builder: (data, documentId) => Chats.fromMap(data, documentId),
         queryBuilder: (query) => query.orderBy('time', descending: true),
       );
+  @override
+  Stream<List<Bookingmodel>> bookingstream() =>
+      _service.collectionStream(
+        path: APIPath.bookingstream(),
+        builder: (data, documentId) => Bookingmodel.fromMap(data, documentId),
+        queryBuilder: (query) => query.where('customeruid',isEqualTo: uid),
+      );
+
   // @override
   // Future<void> deleteJob(Job job) async {
   //   // delete where entry.jobId == job.jobId
@@ -146,10 +167,12 @@ class FirestoreDatabase implements Database {
   //       data: entry.toMap(),
   //     );
 
-  // @override
-  // Future<void> deleteEntry(Entry entry) async =>
-  //     await _service.deleteData(path: APIPath.entry(uid, entry.id));
-
+  @override
+  Future<void> deleteUser() async =>
+      await _service.deleteData(path: APIPath.user(uid));
+  @override
+  Future<void> deleteBooking(String orderid) async =>
+      await _service.deleteData(path: APIPath.addbookings(orderid));
   // @override
   // Stream<List<Entry>> entriesStream({Job job}) =>
   //     _service.collectionStream<Entry>(

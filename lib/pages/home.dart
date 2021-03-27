@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
         } else if (widget.usermodel.role == 'Customer') {
           return Container();
         } else
-          return Booking();
+          return Booking(usermodel:widget.usermodel);
       },
       FTabItem.message: (_) => ChatRoom(
             usermodel: widget.usermodel,
@@ -72,6 +72,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final database =Provider.of<Database>(context);
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.white,
@@ -86,7 +87,9 @@ class _HomePageState extends State<HomePage> {
           actions: [
             Padding(
               padding: const EdgeInsets.all(14.0),
-              child: widget.usermodel.available == true
+              child:
+          
+               widget.usermodel.available==true && widget.usermodel.role=='Freelancer' 
                   ? MaterialButton(
                       onPressed: () async {
                         FirebaseFirestore.instance
@@ -102,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30)),
                     )
-                  : MaterialButton(
+                  :widget.usermodel.available==true && widget.usermodel.role=='Freelancer'? MaterialButton(
                       onPressed: () async {
                         FirebaseFirestore.instance
                             .collection('Users')
@@ -116,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.red,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30)),
-                    ),
+                    ):Container(),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -149,18 +152,24 @@ class _HomePageState extends State<HomePage> {
                               style: paragraphmedium1,
                               textAlign: TextAlign.center,
                             ),
-                            actionsPadding:
-                                EdgeInsets.symmetric(horizontal: 20),
+                           
                             actions: [
-                              SizedBox(
-                                width: .7 * MediaQuery.of(context).size.width,
-                                child: MaterialButton(
-                                  onPressed: () {},
-                                  child: Text('Continue'),
-                                  height: 40,
-                                  color: kPrimaryColor,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(7)),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  width:   MediaQuery.of(context).size.width,
+                                  child: MaterialButton(
+                                    onPressed: ()async {
+                                         Navigator.of(context, rootNavigator: true).pop();
+                                            await database.deleteUser();
+                            
+                                    },
+                                    child: Text('Continue'),
+                                    height: 40,
+                                    color: kPrimaryColor,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(7)),
+                                  ),
                                 ),
                               )
                             ],

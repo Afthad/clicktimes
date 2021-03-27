@@ -40,7 +40,7 @@ Future<void> update({
     final Stream<QuerySnapshot> snapshots = query.snapshots();
     return snapshots.map((snapshot) {
       final result = snapshot.docs
-          .map((snapshot) => builder(snapshot.data(), FieldPath.documentId.toString()))
+          .map((snapshot) => builder(snapshot.data(),  snapshot.id))
           .where((value) => value != null)
           .toList();
       if (sort != null) {
@@ -56,6 +56,6 @@ Future<void> update({
   }) {
     final DocumentReference reference = FirebaseFirestore.instance.doc(path);
     final Stream<DocumentSnapshot> snapshots = reference.snapshots();
-    return snapshots.map((snapshot) => builder(snapshot.data(), FieldPath.documentId.toString()));
+    return snapshots.map((snapshot) => builder(snapshot.data(), snapshot.id));
   }
 }
