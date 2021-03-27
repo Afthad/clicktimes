@@ -45,6 +45,7 @@ class _BookingState extends State<Booking> {
                       
                       return BookingListItemsBuilder<Bookingmodel>(
                           snapshot: snapshot,
+                          hireobook: 'No Bookings',
 
                           itemBuilder: (context, bookingmodel,) {
                             return Dismissible(

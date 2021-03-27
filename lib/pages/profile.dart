@@ -1,5 +1,6 @@
 import 'package:clicktimes/constant.dart';
 import 'package:clicktimes/models/usermodel.dart';
+import 'package:clicktimes/pages/projectpage.dart';
 import 'package:clicktimes/services/auth.dart';
 import 'package:clicktimes/services/database.dart';
 import 'package:clicktimes/widgets/profilecontents.dart';
@@ -18,6 +19,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
+    final database=Provider.of<Database>(context);
    final auth =Provider.of<AuthBase>(context);
           return SingleChildScrollView(
             child: Column(
@@ -120,8 +122,14 @@ class _ProfileState extends State<Profile> {
                     endIndent: 10,
                     thickness: 1,
                   ),
-                  Profilecontents(
-                      contentname: 'Projects', content: widget.usermodel.name),
+                  GestureDetector(
+                    onTap: (){
+
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Projects(database: database,)));
+                    },
+                                      child: Profilecontents(
+                        contentname: 'Projects', content: widget.usermodel.name),
+                  ),
 
                   if (widget.usermodel.role == 'Freelancer') ...[      
                   Divider(

@@ -1,7 +1,6 @@
 import 'package:clicktimes/constant.dart';
 import 'package:clicktimes/models/postmodel.dart';
 import 'package:clicktimes/models/usermodel.dart';
-import 'package:clicktimes/pages/hirepage.dart';
 import 'package:clicktimes/pages/profilefreelancer.dart';
 import 'package:clicktimes/services/database.dart';
 import 'package:clicktimes/services/messageservice.dart';
@@ -167,13 +166,17 @@ class _PosttileState extends State<Posttile>   {
             return Container(
               height: 250,
               child: Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: .5,
-                  // backgroundColor: kPrimaryColor,
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded /
-                          loadingProgress.expectedTotalBytes
-                      : null,
+                child: SizedBox(
+                  height: 60,
+                  width: 60,
+                                  child: CircularProgressIndicator(
+                    strokeWidth: .8,
+                    // backgroundColor: kPrimaryColor,
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes
+                        : null,
+                  ),
                 ),
               ),
             );

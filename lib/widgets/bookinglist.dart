@@ -12,9 +12,11 @@ class BookingListItemsBuilder<T> extends StatelessWidget {
     Key key,
     @required this.snapshot,
     @required this.itemBuilder,
+    @required this.hireobook,
   }) : super(key: key);
   final AsyncSnapshot<List<T>> snapshot;
   final ItemWidgetBuilder<T> itemBuilder;
+  final String hireobook;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class BookingListItemsBuilder<T> extends StatelessWidget {
       if (items.isNotEmpty) {
         return _buildList(items);
       } else {
-        return Center(child: Text('No Bookings',style: nobookings,));
+        return Center(child: Text('$hireobook',style: nobookings,));
       }
     } else if (snapshot.hasError) {
       return ShimmerChatroom (itemcount: 9,);

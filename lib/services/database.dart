@@ -35,6 +35,7 @@ abstract class Database {
   Stream<List<Bookingmodel>> bookingstream();
   Future<void>deleteBooking(String orderid);
       Stream<List<Hire>> hiringstream();
+       Future<void> deleteHiring(String orderid);
   // Future<void> setEntry(Entry entry);
   // Future<void> deleteEntry(Entry entry);
   // Stream<List<Entry>> entriesStream({Job job});
@@ -182,7 +183,7 @@ class FirestoreDatabase implements Database {
       await _service.deleteData(path: APIPath.addbookings(orderid));
        @override
   Future<void> deleteHiring(String orderid) async =>
-      await _service.deleteData(path: APIPath.addbookings(orderid));
+      await _service.deleteData(path: APIPath.setHire(orderid));
   // @override
   // Stream<List<Entry>> entriesStream({Job job}) =>
   //     _service.collectionStream<Entry>(

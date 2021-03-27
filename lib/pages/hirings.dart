@@ -53,14 +53,14 @@ class _HiringsState extends State<Hirings> {
                         
                         return BookingListItemsBuilder<Hire>(
                             snapshot: snapshot,
-
+                               hireobook: 'No Hirings',
                             itemBuilder: (context, hiringmodel,) {
                               return StreamBuilder<Usermodel>(
                                 stream: database.userStream(uid: hiringmodel.freelanceruid),
                                 builder: (context, snapshot) {
                                   if(snapshot.hasData){
                                   return Dismissible(
-                                    key: Key('booking-${hiringmodel.created}'),
+                                    key: Key('hiring-${hiringmodel.created}'),
                                     confirmDismiss:
                                         (DismissDirection dismissDirection) async {
                                       switch (dismissDirection) {
@@ -69,7 +69,7 @@ class _HiringsState extends State<Hirings> {
 
                                         case DismissDirection.startToEnd:
                                           return await _showConfirmationDialog(
-                                                  context, 'delete', hiringmodel.start,database) ==
+                                                  context, 'delete', hiringmodel.start,database,hiringmodel) ==
                                               true;
                                         case DismissDirection.horizontal:
                                         case DismissDirection.vertical:
@@ -125,7 +125,7 @@ class _HiringsState extends State<Hirings> {
     );
   }
    Future<bool> _showConfirmationDialog(
-      BuildContext context, String action, bool start,Database database) {
+      BuildContext context, String action, bool start,Database database,Hire hire) {
     return showDialog<bool>(
       context: context,
       barrierDismissible: true,
@@ -146,7 +146,7 @@ class _HiringsState extends State<Hirings> {
                 onPressed: () async{
                     Navigator.pop(context, true);
                   try {
-                  //  await database.deleteBooking(model.orderid);
+                  await database.deleteHiring(hire.orderid);
                    
                   } catch (e) {
                   }
