@@ -32,9 +32,19 @@ final Usermodel usermodel;
           BottomNavigationBarItem(
               activeIcon: SvgPicture.asset('images/Home.svg'),
               icon: SvgPicture.asset('images/Homeout.svg')),
-          BottomNavigationBarItem(
+       
+       
+    usermodel.role=='Freelancer'?BottomNavigationBarItem(
               icon: SvgPicture.asset('images/Postout.svg'),
-              activeIcon: SvgPicture.asset('images/Post.svg')),
+              activeIcon: SvgPicture.asset('images/Post.svg')):
+              usermodel.role=='CT Agent'?BottomNavigationBarItem(
+              icon: SvgPicture.asset('images/Customers.svg',color: kPrimaryColor,),
+              activeIcon: SvgPicture.asset('images/Customersout.svg',color: kPrimaryColor,)):
+              
+              BottomNavigationBarItem(
+              icon: SvgPicture.asset('images/Search.svg',color: kPrimaryColor,),
+              activeIcon: SvgPicture.asset('images/Search.svg',color: kPrimaryColor,))
+              ,
           BottomNavigationBarItem(
               icon: SvgPicture.asset('images/Messageout.svg'),
               activeIcon: SvgPicture.asset('images/Message.svg')),
@@ -43,11 +53,13 @@ final Usermodel usermodel;
             radius: 12,
             backgroundColor: Colors.grey,
             backgroundImage:  NetworkImage(usermodel.profile),
+           
+        
             
           ),
           activeIcon:  CircleAvatar(
             radius: 12,
-            backgroundColor: kPrimaryColor,
+            backgroundColor: Colors.grey,
                      child: CircleAvatar(backgroundImage: NetworkImage(usermodel.profile),
                      radius: 10.5,
                      ),      

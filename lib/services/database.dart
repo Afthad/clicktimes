@@ -22,18 +22,19 @@ abstract class Database {
   Stream<List<Post>> postStream();
   Stream<List<Post>> selectedpostStream({@required String userid});
   Future<void> updateUser(Usermodel usermodel);
-  Future<void> setHire(Hire hire);
+  Future<void> setHire(Hire hire,String orderid);
   Future<void> setBooking(Bookingmodel booking,String orderid);
   Future<void> createChatRoom(String chatRoomId, ChatRoomModel chatRoomModel);
   Stream<List<Chats>> chatsStreams(String chatRoomId);
   Stream<List<ChatRoomModelother>> chatRoomget();
   Stream<List<ChatRoomModel>> chatRoomstreams();
   Future<void> addChats(Chats chats, String chatRoomId);
-Future<void> addpost(Post post,String postid);
+  Future<void> addpost(Post post,String postid);
   Stream<List<Usermodel>> getuser();
   Future<void> deleteUser();
-    Stream<List<Bookingmodel>> bookingstream();
-     Future<void>deleteBooking(String orderid);
+  Stream<List<Bookingmodel>> bookingstream();
+  Future<void>deleteBooking(String orderid);
+      Stream<List<Hire>> hiringstream();
   // Future<void> setEntry(Entry entry);
   // Future<void> deleteEntry(Entry entry);
   // Stream<List<Entry>> entriesStream({Job job});
@@ -73,8 +74,8 @@ class FirestoreDatabase implements Database {
         data: chatRoomModel.toMap(),
       );
       @override
-  Future<void> setHire(Hire hire) async => await _service.setData(
-        path: APIPath.setHire(documentIdFromCurrentDate()),
+  Future<void> setHire(Hire hire,String orderid) async => await _service.setData(
+        path: APIPath.setHire(orderid),
         data: hire.toMap(),
       );
    @override
@@ -110,7 +111,13 @@ class FirestoreDatabase implements Database {
         builder: (data, documentId) => Bookingmodel.fromMap(data, documentId),
         queryBuilder: (query) => query.where('customeruid',isEqualTo: uid),
       );
-
+ @override
+  Stream<List<Hire>>hiringstream() =>
+      _service.collectionStream(
+        path: APIPath.hiringstream(),
+        builder: (data, documentId) => Hire.fromMap(data, documentId),
+        queryBuilder: (query) => query.where('customeruid',isEqualTo: uid),
+      );
   // @override
   // Future<void> deleteJob(Job job) async {
   //   // delete where entry.jobId == job.jobId
@@ -172,6 +179,9 @@ class FirestoreDatabase implements Database {
       await _service.deleteData(path: APIPath.user(uid));
   @override
   Future<void> deleteBooking(String orderid) async =>
+      await _service.deleteData(path: APIPath.addbookings(orderid));
+       @override
+  Future<void> deleteHiring(String orderid) async =>
       await _service.deleteData(path: APIPath.addbookings(orderid));
   // @override
   // Stream<List<Entry>> entriesStream({Job job}) =>

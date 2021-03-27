@@ -26,7 +26,7 @@ class LandingPage extends StatelessWidget {
             }
              return Provider<Database>(
               create: (_) => FirestoreDatabase(uid: user.uid),
-              child: Selectorpage(uid:user.uid)
+              child: Selectorpage(uid:user.uid,photourl:user.photoURL)
             );;
           } else {
             return SplashScreen();

@@ -8,8 +8,9 @@ import 'package:provider/provider.dart';
 
 class Selectorpage extends StatefulWidget {
   final String uid;
+  final String photourl;
 
-  const Selectorpage({Key key, @required this.uid}) : super(key: key);
+  const Selectorpage({Key key, @required this.uid, @required this.photourl}) : super(key: key);
   @override
   _SelectorpageState createState() => _SelectorpageState();
 }
@@ -24,7 +25,7 @@ return StreamBuilder<Usermodel>(
     if(snapshot.hasData && snapshot.connectionState==ConnectionState.active){
   return      HomePage(usermodel: snapshot.data);}
     if(snapshot.data==null && snapshot.connectionState==ConnectionState.active){
-      return Registrationpage(uid: widget.uid,);
+      return Registrationpage(uid: widget.uid,photourl:widget.photourl);
     } 
     if(snapshot.hasError  || !snapshot.hasData || snapshot.connectionState==ConnectionState.none){
       return SplashScreen();

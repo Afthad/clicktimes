@@ -3,6 +3,7 @@ import 'package:clicktimes/models/booking.dart';
 
 import 'package:clicktimes/models/usermodel.dart';
 import 'package:clicktimes/pages/addbooking.dart';
+import 'package:clicktimes/pages/bookingdetails.dart';
 import 'package:clicktimes/services/database.dart';
 import 'package:clicktimes/widgets/bookinglist.dart';
 import 'package:flutter/material.dart';
@@ -75,6 +76,12 @@ class _BookingState extends State<Booking> {
                                   ))),
                               direction: DismissDirection.endToStart,
                               child: ListTile(
+                                onTap: (){
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BookingDetails(
+                          bookingmodel: bookingmodel,
+                                  )
+                                  ));
+                                },
                                 leading: CircleAvatar(
                                   backgroundColor: kPrimaryColor,
                                   child: SvgPicture.asset('images/Mall.svg',color: Colors.white,),

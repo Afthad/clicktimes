@@ -9,5 +9,6 @@ class APIPath {
   static String addchats(String chatRoomId,String date)=>'ChatRoom/$chatRoomId/chats/$date';
   static String chatRoomStream()=>'ChatRoom';
   static String addbookings(String orderid)=>'Booking/$orderid';
-  static String bookingstream()=>'Booking';
+  static String bookingstream()=>'Booking'; 
+  static String hiringstream()=>'Hiring';
 }

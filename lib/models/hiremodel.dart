@@ -14,6 +14,8 @@ class Hire {
   final String phone;
   final Timestamp created;
   final String budget;
+final bool start;
+
 
   Hire(
       {@required this.category,
@@ -28,6 +30,7 @@ class Hire {
       @required this.phone,
      @required this. created,
      @required this.budget,
+     @required this.start
       });
 
   factory Hire.fromMap(Map<String, dynamic> data, String documentId) {
@@ -42,7 +45,8 @@ class Hire {
     final String orderid = data['orderid'];
     final String phone = data['phone'];
  final Timestamp created=data['created'];
- final String budget =data['data'];
+ final String budget =data['budget'];
+ final bool start=data['start'];
     return Hire(
         category: category,
         customeruid: customeruid,
@@ -55,7 +59,8 @@ class Hire {
         orderid: orderid,
         phone: phone,
         created: created,
-        budget :budget 
+        budget :budget ,
+        start: start
         
         );
   }
@@ -66,7 +71,7 @@ class Hire {
      'category': category,
         'customeruid': customeruid,
         'description': description,
-        
+        'start':start,
         'enddate': enddate,
         'startdate': startdate,
         'freelanceruid': freelanceruid,

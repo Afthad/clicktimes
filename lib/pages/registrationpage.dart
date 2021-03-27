@@ -15,8 +15,8 @@ import '../constant.dart';
 
 class Registrationpage extends StatefulWidget {
   final String uid;
-
-  const Registrationpage({Key key, this.uid}) : super(key: key);
+final String photourl;
+  const Registrationpage({Key key, this.uid, this.photourl}) : super(key: key);
   @override
   _RegistrationpageState createState() => _RegistrationpageState();
 }
@@ -119,7 +119,7 @@ action: SnackBarAction(label: 'Undo', onPressed: (){}),
         final usermodel = Usermodel(
             email: email,     
             about: selectedworkList!=null? selectedworkList.join(','):'null',
-            profile:'dddd' ,
+            profile:widget.photourl ,
             phone: phone,
             role: role,
             uid: widget.uid,

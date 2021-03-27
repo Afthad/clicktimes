@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 
 import 'booking.dart';
 import 'chatroom.dart';
+import 'hirings.dart';
 import 'homeScaffold.dart';
 
 class HomePage extends StatefulWidget {
@@ -46,7 +47,7 @@ class _HomePageState extends State<HomePage> {
             usermodel: widget.usermodel,
           );
         } else if (widget.usermodel.role == 'Customer') {
-          return Container();
+          return Hirings();
         } else
           return Booking(usermodel:widget.usermodel);
       },
