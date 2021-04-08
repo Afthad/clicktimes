@@ -1,5 +1,6 @@
 import 'package:clicktimes/models/postmodel.dart';
 import 'package:clicktimes/models/usermodel.dart';
+import 'package:clicktimes/blocs/feedsbloc.dart';
 import 'package:clicktimes/widgets/postlist.dart';
 import 'package:clicktimes/pages/posttile.dart';
 import 'package:clicktimes/services/database.dart';
@@ -16,37 +17,26 @@ class Feedspage extends StatefulWidget {
 }
 
 class _FeedspageState extends State<Feedspage> {
+  
   @override
   Widget build(BuildContext context) {
+  
     final database=Provider.of<Database>(context);
-    return  LayoutBuilder(
-      builder: (context,BoxConstraints constraints){
-
-       return StreamBuilder<List<Post>>(
-          stream: database.postStream(),
+  Allbloc postsbloc =Allbloc(database:database);
+       return StreamBuilder<List<PostUser>>(
+          stream:postsbloc.allPostsStream(),
           builder: (context, snapshot) {
-            return PostListItemsBuilder<Post>(
+            return PostListItemsBuilder<PostUser>(
             snapshot: snapshot,
-            itemBuilder: (context, post)=>StreamBuilder<Usermodel>(
-              stream: database.userStream(uid: post.uid),
-              builder: (context, snapshot) {
-                if(snapshot.hasData ){
-                return Posttile(post: post,usermodel: widget.usermodel,userpost:snapshot.data,database:database);}
-                return Container(
-                  height: constraints.maxHeight,
-
-                  width: constraints.maxHeight,
-                  child: ShimmerPost(itemcount: 1,));
-              }
-              
-            ));
-          }
-        
-        
+            itemBuilder: (context, post)=>
+            Posttile(
+              userpost: post.usermodel,
+              post: post.post,usermodel: widget.usermodel,database:database,));
+            
+            }
       );
 
-      },
-          
-    );
   }
+    
+  
 }

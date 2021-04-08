@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
-import 'bookingdetails.dart';
+import 'package:clicktimes/pages/searchpage.dart';
+import 'hiringdetails.dart';
 
 class Hirings extends StatefulWidget {
   @override
@@ -35,7 +35,15 @@ class _HiringsState extends State<Hirings> {
               Text('Hirings',style: chatroomtitle,),
               IconButton(
                 iconSize: 24,
-                onPressed: (){},
+                onPressed: ()async{
+                  await Navigator.of(context).push(MaterialPageRoute(
+                                      fullscreenDialog: true,
+                                      //maintainState: true,
+                                      builder: (context)=>Searchpage (
+                            
+                                    )
+                                    ));
+                },
                 icon: Icon(Icons.search,color: Colors.black,),
                color:Colors.black,),
                
@@ -88,12 +96,19 @@ class _HiringsState extends State<Hirings> {
                                         ))),
                                     direction: DismissDirection.endToStart,
                                     child: ListTile(
-                                      onTap: (){
-                            //         Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BookingDetails(
-                            // hiringmodel: hiringmodel,
-                            //         )
-                            //         ));
-                                      },
+                                      onTap: ()async{
+                           await Navigator.of(context,rootNavigator: true).push(MaterialPageRoute(
+                                      fullscreenDialog: true,
+                                      //maintainState: true,
+                                      builder: (context)=>HiringDetails (
+                            hire: hiringmodel,
+
+                            customer: snapshot.data,
+                            database:database,
+                                    )
+                                    ));
+                                    },
+                                      
                                       leading: CircleAvatar(
                                         backgroundColor: kPrimaryColor,
                                         child: SvgPicture.asset('images/Mall.svg',color: Colors.white,),

@@ -62,6 +62,12 @@ const paragraphmedium4 = TextStyle(
   color: kparacolor,
   fontFamily: 'Inter'
 );
+const nochats = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w400,
+  color: Colors.grey,
+  fontFamily: 'Inter'
+);
 const paragraphmedium1 = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.normal,

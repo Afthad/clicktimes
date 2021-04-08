@@ -1,6 +1,7 @@
 import 'package:clicktimes/constant.dart';
 import 'package:clicktimes/models/hiremodel.dart';
 import 'package:clicktimes/models/usermodel.dart';
+import 'package:clicktimes/pages/projectdetails.dart';
 import 'package:clicktimes/services/database.dart';
 import 'package:clicktimes/widgets/bookinglist.dart';
 import 'package:clicktimes/widgets/shimmerchatroom.dart';
@@ -31,66 +32,41 @@ class _ProjectsState extends State<Projects> {
       builder: (context,BoxConstraints constraints){ 
         return 
                                    StreamBuilder<List<Hire>>(
-                      stream:widget.database.hiringstream(),
+                      stream:widget.database.hiringstreamFreelance(),
                       builder: (context, snapshot) {
                         
                         return BookingListItemsBuilder<Hire>(
                             snapshot: snapshot,
-                               hireobook: 'No Hirings',
+                               hireobook: 'No Projects',
                             itemBuilder: (context, hiringmodel,) {
                               return StreamBuilder<Usermodel>(
-                                stream:widget. database.userStream(uid: hiringmodel.freelanceruid),
+                                stream:widget. database.userStream(uid: hiringmodel.customeruid),
                                 builder: (context, snapshot) {
                                   if(snapshot.hasData){
-                                  return Dismissible(
-                                    key: Key('hiring-${hiringmodel.created}'),
-                                    // confirmDismiss:
-                                    // //     (DismissDirection dismissDirection) async {
-                                    // //   switch (dismissDirection) {
-                                      
-                                    // //     case DismissDirection.endToStart:
+                                  return ListTile(
+                                    onTap: ()async {
+                                    await Navigator.of(context,rootNavigator: true).push(MaterialPageRoute(
+                                      fullscreenDialog: true,
+                                      //maintainState: true,
+                                      builder: (context)=>ProjectsDetails(
+                            hire: hiringmodel,
 
-                                    // //     case DismissDirection.startToEnd:
-                                    // //       return await _showConfirmationDialog(
-                                    // //               context, 'delete', hiringmodel.start,database,hiringmodel) ==
-                                    // //           true;
-                                    // //     case DismissDirection.horizontal:
-                                    // //     case DismissDirection.vertical:
-                                    // //     case DismissDirection.up:
-                                    // //     case DismissDirection.down:
-                                    // //       assert(false);
-                                    // //   }
-                                    // //   return false;
-                                    // // },
-                                    background: Container(
-                                        color: Colors.red,
-                                        child: Center(
-                                            child: Icon(
-                                          Icons.delete,
-                                          color: Colors.white,
-                                        ))),
-                                    direction: DismissDirection.endToStart,
-                                    child: ListTile(
-                                      onTap: (){
-                            //         Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BookingDetails(
-                            // hiringmodel: hiringmodel,
-                            //         )
-                            //         ));
-                                      },
-                                      leading: CircleAvatar(
-                                        backgroundColor: kPrimaryColor,
-                                        child: SvgPicture.asset('images/Mall.svg',color: Colors.white,),
-                                      ),
-                                      title:Text(snapshot.data.name),
-
-                                      subtitle: Text('Starting Date  ' +
-                                    
-                                    
-                                          '${DateFormat.yMEd().format(hiringmodel.startdate.toDate())} '),
-                                              trailing: hiringmodel.start==false?Text('Booked'):Text('Processing'),
+                            customer: snapshot.data,
+                            database:widget.database,
+                                    )
+                                    ));
+                                    },
+                                    leading: CircleAvatar(
+                                      backgroundColor: kPrimaryColor,
+                                      child: SvgPicture.asset('images/Mall.svg',color: Colors.white,),
                                     ),
+                                    title:Text(snapshot.data.name),
 
-
+                                    subtitle: Text('Starting Date  ' +
+                                  
+                                  
+                                        '${DateFormat.yMEd().format(hiringmodel.startdate.toDate())} '),
+                                            trailing: hiringmodel.start==false?Text('Booked'):Text('Processing'),
                                   );
                                 }
                                 else return Container(

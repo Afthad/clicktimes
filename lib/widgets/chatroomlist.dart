@@ -2,7 +2,7 @@ import 'package:clicktimes/widgets/shimmer.dart';
 import 'package:clicktimes/widgets/shimmerchatroom.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
+import 'package:clicktimes/constant.dart';
 
 typedef ItemWidgetBuilder<T> = Widget Function(BuildContext context, T item);
 
@@ -22,10 +22,10 @@ class ChatRoomsListItemsBuilder<T> extends StatelessWidget {
       if (items.isNotEmpty) {
         return _buildList(items);
       } else {
-        return ShimmerChatroom (itemcount: 9,);
+        return Center(child: Text('No Messages',style: nochats,));
       }
     } else if (snapshot.hasError) {
-      return ShimmerChatroom (itemcount: 9,);
+      return Container(child:Text('Something Went Wrong',style: nochats,),);
     }
     return ShimmerChatroom (itemcount: 9,);
   }

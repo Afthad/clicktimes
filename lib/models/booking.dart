@@ -17,19 +17,19 @@ class Bookingmodel {
   final bool start;
 
   Bookingmodel(
-      {@required this.category,
-      @required this.customeruid,
-      @required this.description,
+      { this.category,
+       this.customeruid,
+       this.description,
       
-      @required this.enddate,
-      @required this.startdate,
+       this.enddate,
+       this.startdate,
      
-      @required this.location,
-      @required this.orderid,
-      @required this.phone,
-     @required this. created,
-     @required this.budget,
-      @required this.start,
+       this.location,
+       this.orderid,
+       this.phone,
+      this. created,
+      this.budget,
+       this.start,
       });
 
   factory Bookingmodel.fromMap(Map<String, dynamic> data, String documentId) {
@@ -75,8 +75,22 @@ class Bookingmodel {
         'orderid': orderid,
         'phone': phone,
         'created':created,
-        'budget ':budget ,
+        'budget':budget ,
     };
 }
-
+    Map<String, dynamic> paymenToMap() {
+    return {
+     'category': category,
+        'customeruid': customeruid,
+        'description': description,
+        'start':start,
+        'enddate': enddate,
+        'startdate': startdate,
+        'location': location,
+        'orderid': orderid,
+        'phone': phone,
+        'created':created,
+        'budget':budget ,
+    };
+}
 }

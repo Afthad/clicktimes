@@ -1,6 +1,6 @@
 class APIPath {
   static String user(String uid) => 'Users/$uid';
-  static String userget()=>'User';
+  static String userget()=>'Users';
   static String post()=>'Posts';
   static String postadd(String postid)=>'Posts/$postid';
   static String setHire(String id)=>'Hiring/$id';

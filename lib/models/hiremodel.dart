@@ -15,22 +15,30 @@ class Hire {
   final Timestamp created;
   final String budget;
 final bool start;
+final bool reject;
+final bool paymentrequest;
+final bool complete;
+final String amount;
 
 
   Hire(
-      {@required this.category,
-      @required this.customeruid,
-      @required this.description,
+      { this.category,
+       this.customeruid,
+       this.description,
       
-      @required this.enddate,
-      @required this.startdate,
-      @required this.freelanceruid,
-      @required this.location,
-      @required this.orderid,
-      @required this.phone,
-     @required this. created,
-     @required this.budget,
-     @required this.start
+       this.enddate,
+       this.startdate,
+       this.freelanceruid,
+       this.location,
+       this.orderid,
+       this.phone,
+      this. created,
+      this.budget,
+      this.start,
+      this.reject,
+       this.paymentrequest,
+       this.complete,
+       this.amount,
       });
 
   factory Hire.fromMap(Map<String, dynamic> data, String documentId) {
@@ -47,6 +55,10 @@ final bool start;
  final Timestamp created=data['created'];
  final String budget =data['budget'];
  final bool start=data['start'];
+ final bool reject=data['reject'];
+final bool complete=data['complete'];
+ final bool paymentrequest=data['paymentrequest'];
+final String amount=data['amount'];
     return Hire(
         category: category,
         customeruid: customeruid,
@@ -60,7 +72,11 @@ final bool start;
         phone: phone,
         created: created,
         budget :budget ,
-        start: start
+        start: start,
+        reject:reject,
+        paymentrequest:paymentrequest,
+        complete: complete,
+        amount: amount,
         
         );
   }
@@ -79,8 +95,14 @@ final bool start;
         'orderid': orderid,
         'phone': phone,
         'created':created,
-        'budget ':budget ,
+        'budget':budget,
+        'reject':reject,
+        'paymentrequest':paymentrequest,
+        'complete':complete,
+        'amount':amount,
     };
 }
+
+
 
 }

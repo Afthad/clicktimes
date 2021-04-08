@@ -41,6 +41,12 @@ dependencies:
   shimmer: ^1.1.2
   intl: ^0.17.0
   uuid: 3.0.2
+  razorpay_flutter: ^1.2.5
+  paytm_allinonesdk: ^1.0.0
+  rxdart: ^0.26.0
+
+  
+  
 
 dev_dependencies:
   flutter_test:

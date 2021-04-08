@@ -128,8 +128,13 @@ class _PosttileState extends State<Posttile>   {
             widget.userpost.location,
             style: posttitlesub,
           ),
-          trailing: IconButton(
+          trailing: widget.usermodel.uid!=widget.userpost.uid? IconButton(
               icon: SvgPicture.asset('images/Messageout.svg'),
+              onPressed: () {
+
+                  _service.createRoomMessage(context, widget.database, widget.usermodel, widget.userpost);
+              }):IconButton(
+              icon: Icon(Icons.delete),
               onPressed: () {
 
                   _service.createRoomMessage(context, widget.database, widget.usermodel, widget.userpost);
@@ -200,7 +205,7 @@ class _PosttileState extends State<Posttile>   {
             style: paragraphmedium2,
           ),
           horizontalTitleGap: 1,
-          trailing: Padding(
+          trailing:widget.usermodel.role!='Customer' ?Padding(
             padding: const EdgeInsets.all(8.0),
             child: MaterialButton(
               onPressed: () =>
@@ -218,7 +223,7 @@ class _PosttileState extends State<Posttile>   {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(6)),
             ),
-          ),
+          ):Container(height: 0,width: 0,),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 15.0, right: 8),

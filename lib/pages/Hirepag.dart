@@ -123,6 +123,9 @@ final snackBarCategory = SnackBar(content: Text('Category not Selected '),  acti
         phone: widget.usermodel.phone,
         budget: budget,
         start: false,
+        complete: false,
+        reject: false,
+        paymentrequest: false,
         
         
         

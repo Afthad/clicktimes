@@ -7,9 +7,7 @@ import 'package:clicktimes/models/chatroomo.dart';
 import 'package:clicktimes/models/hiremodel.dart';
 import 'package:clicktimes/models/postmodel.dart';
 import 'package:clicktimes/models/usermodel.dart';
-import 'package:clicktimes/pages/addbooking.dart';
-import 'package:clicktimes/pages/chatroom.dart';
-
+import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 import 'apipath.dart';
 import 'firestore_service.dart';
@@ -34,8 +32,11 @@ abstract class Database {
   Future<void> deleteUser();
   Stream<List<Bookingmodel>> bookingstream();
   Future<void>deleteBooking(String orderid);
-      Stream<List<Hire>> hiringstream();
-       Future<void> deleteHiring(String orderid);
+  Stream<List<Hire>> hiringstream();
+  Future<void> deleteHiring(String orderid);
+  Stream<List<Hire>>hiringstreamFreelance();
+    Future<void> updateHirepayment(Hire hire,String orderid) ;
+    Stream<Hire>hiringstreamselected(String orderid);
   // Future<void> setEntry(Entry entry);
   // Future<void> deleteEntry(Entry entry);
   // Stream<List<Entry>> entriesStream({Job job});
@@ -79,6 +80,11 @@ class FirestoreDatabase implements Database {
         path: APIPath.setHire(orderid),
         data: hire.toMap(),
       );
+            @override
+  Future<void> updateHirepayment(Hire hire,String orderid) async => await _service.update(
+        path: APIPath.setHire(orderid),
+        data: hire.toMap(),
+      );
    @override
   Future<void> setBooking(Bookingmodel booking,String orderid) async => await _service.setData(
         path: APIPath.addbookings(orderid),
@@ -118,6 +124,20 @@ class FirestoreDatabase implements Database {
         path: APIPath.hiringstream(),
         builder: (data, documentId) => Hire.fromMap(data, documentId),
         queryBuilder: (query) => query.where('customeruid',isEqualTo: uid),
+      );
+       @override
+  Stream<Hire>hiringstreamselected(String orderid) =>
+      _service.documentStream(
+        path: APIPath.setHire(orderid),
+        builder: (data, documentId) => Hire.fromMap(data, documentId),
+      //  queryBuilder: (query) => query.where('customeruid',isEqualTo: uid),
+      );
+       @override
+  Stream<List<Hire>>hiringstreamFreelance() =>
+      _service.collectionStream(
+        path: APIPath.hiringstream(),
+        builder: (data, documentId) => Hire.fromMap(data, documentId),
+        queryBuilder: (query) => query.where('freelanceruid',isEqualTo: uid),
       );
   // @override
   // Future<void> deleteJob(Job job) async {
@@ -169,6 +189,8 @@ class FirestoreDatabase implements Database {
         builder: (data, documentId) => Post.fromMap(data, documentId),
         queryBuilder: (query) => query.where('uid', isEqualTo: userid),
       );
+
+  
   // @override
   // Future<void> setEntry(Entry entry) async => await _service.setData(
   //       path: APIPath.entry(uid, entry.id),

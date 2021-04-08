@@ -1,11 +1,10 @@
-import 'package:clicktimes/services/auth.dart';
 import 'package:clicktimes/pages/landing_page.dart';
-import 'package:clicktimes/pages/loginpage.dart';
+import 'package:clicktimes/pages/paytm.dart';
+import 'package:clicktimes/services/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'pages/home.dart';
 
 void main() async{
    WidgetsFlutterBinding.ensureInitialized();

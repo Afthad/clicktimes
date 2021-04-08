@@ -1,11 +1,13 @@
 import 'package:clicktimes/constant.dart';
 import 'package:clicktimes/models/chatmodel.dart';
 import 'package:clicktimes/models/usermodel.dart';
+import 'package:clicktimes/pages/chatroom.dart';
 import 'package:clicktimes/services/database.dart';
 import 'package:clicktimes/services/messageservice.dart';
 import 'package:clicktimes/widgets/chatllist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 import 'messagetile.dart';
 
@@ -21,6 +23,10 @@ class Message extends StatefulWidget {
 }
 
 class _MessageState extends State<Message> {
+
+
+
+
   TextEditingController controller =TextEditingController();
   MessageService _service=MessageService();
   @override
@@ -64,15 +70,20 @@ class _MessageState extends State<Message> {
                 return ChatListItemsBuilder<Chats>(
                   snapshot: snapshot,
                   itemBuilder: (snapshots,chats)=>
-                                 MessageTile(
-                                   message: chats.message,
-                                   sendBy: chats.sendBy,
-                                   time:chats.time.toDate(),
-                                   chatRoomId:widget.chatRoomId,
-                                   database:widget.database,
-                                   usermodel:widget.usermodel,
+                                 Column(
+                                   children: [
+                                     Container(child: Text(DateFormat.yMd().format(chats.time.toDate()),style: times,)),
+                                     MessageTile(
+                                       message: chats.message,
+                                       sendBy: chats.sendBy,
+                                       time:chats.time.toDate(),
+                                       chatRoomId:widget.chatRoomId,
+                                       database:widget.database,
+                                       usermodel:widget.usermodel,
       
                             
+                                     ),
+                                   ],
                                  )
                 );
               }
@@ -139,3 +150,4 @@ class _MessageState extends State<Message> {
     );
   }
 }
+  

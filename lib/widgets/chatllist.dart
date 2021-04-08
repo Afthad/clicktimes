@@ -1,3 +1,4 @@
+import 'package:clicktimes/constant.dart';
 import 'package:clicktimes/widgets/shimmer.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +22,12 @@ class ChatListItemsBuilder<T> extends StatelessWidget {
       if (items.isNotEmpty) {
         return _buildList(items);
       } else {
-        return Text('No Chats');
+        return Center(child: Text('No Chats',style: nochats,));
       }
     } else if (snapshot.hasError) {
-      return Container(child:Text(snapshot.error.toString()),);
+      return Container(child:Text('Something Went Wrong',style: nochats,),);
     }
-    return Text('Something Went Wrong');
+    return Center(child: CircularProgressIndicator(backgroundColor: kPrimaryColor,strokeWidth: 1,),);
   }
 
   Widget _buildList(List<T> items) {
