@@ -20,8 +20,9 @@ import 'homeScaffold.dart';
 
 class HomePage extends StatefulWidget {
   final Usermodel usermodel;
+  final String userurl;
 
-  const HomePage({Key key, @required this.usermodel}) : super(key: key);
+  const HomePage({Key key, @required this.usermodel, this.userurl}) : super(key: key);
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -47,7 +48,7 @@ class _HomePageState extends State<HomePage> {
             usermodel: widget.usermodel,
           );
         } else if (widget.usermodel.role == 'Customer') {
-          return Hirings();
+          return Hirings(usermodel: widget.usermodel,);
         } else
           return Booking(usermodel:widget.usermodel);
       },
@@ -57,6 +58,7 @@ class _HomePageState extends State<HomePage> {
       FTabItem.profile: (_) {
         return Profile(
           usermodel: widget.usermodel,
+          url:widget.userurl
         );
       }
     };

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:clicktimes/models/postmodel.dart';
 import 'package:clicktimes/models/usermodel.dart';
 import 'package:clicktimes/services/database.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -62,7 +62,7 @@ Map<String,dynamic>likes={};
         _imageFile = cropped;
       });
     } catch (e) {
-      print("dddddddddddddddddddddddddddddddddddddd" + e);
+      print("dddddddddddddddddddddddddddddddddddddd" );
     }
   }
 

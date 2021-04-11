@@ -13,6 +13,9 @@ import 'package:clicktimes/pages/searchpage.dart';
 import 'hiringdetails.dart';
 
 class Hirings extends StatefulWidget {
+ final Usermodel usermodel;
+
+  const Hirings({Key key, this.usermodel}) : super(key: key);
   @override
   _HiringsState createState() => _HiringsState();
 }
@@ -40,7 +43,8 @@ class _HiringsState extends State<Hirings> {
                                       fullscreenDialog: true,
                                       //maintainState: true,
                                       builder: (context)=>Searchpage (
-                            
+                            database:database,
+                            usermodel: widget.usermodel
                                     )
                                     ));
                 },

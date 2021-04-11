@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:google_sign_in/testing.dart';
 
 class Hire {
   final String category;
@@ -19,6 +20,7 @@ final bool reject;
 final bool paymentrequest;
 final bool complete;
 final String amount;
+final bool paid;
 
 
   Hire(
@@ -39,6 +41,7 @@ final String amount;
        this.paymentrequest,
        this.complete,
        this.amount,
+       this.paid,
       });
 
   factory Hire.fromMap(Map<String, dynamic> data, String documentId) {
@@ -59,7 +62,9 @@ final String amount;
 final bool complete=data['complete'];
  final bool paymentrequest=data['paymentrequest'];
 final String amount=data['amount'];
+final bool paid=data['paid'];
     return Hire(
+      paid: paid,
         category: category,
         customeruid: customeruid,
         description: description,
@@ -75,6 +80,7 @@ final String amount=data['amount'];
         start: start,
         reject:reject,
         paymentrequest:paymentrequest,
+        
         complete: complete,
         amount: amount,
         
@@ -100,6 +106,7 @@ final String amount=data['amount'];
         'paymentrequest':paymentrequest,
         'complete':complete,
         'amount':amount,
+        'paid':paid
     };
 }
 

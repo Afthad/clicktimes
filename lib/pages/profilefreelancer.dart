@@ -1,15 +1,19 @@
+import 'dart:ui';
+
 import 'package:clicktimes/constant.dart';
 import 'package:clicktimes/models/postmodel.dart';
 import 'package:clicktimes/models/usermodel.dart';
+import 'package:clicktimes/pages/Hirepag.dart';
 import 'package:clicktimes/services/database.dart';
 import 'package:clicktimes/services/messageservice.dart';
 import 'package:clicktimes/widgets/postgridlist.dart';
 import 'package:clicktimes/widgets/profilecontents.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class ProfileFreelancer extends StatefulWidget {
   final Usermodel usermodel;
-  final Post post;
+ // final Post post;
   final Usermodel postuser;
   final Database database;
 
@@ -17,7 +21,7 @@ class ProfileFreelancer extends StatefulWidget {
       {Key key,
       @required this.database,
       @required this.usermodel,
-      @required this.post,
+     // @required this.post,
       @required this.postuser})
       : super(key: key);
   @override
@@ -52,51 +56,41 @@ class _ProfileFreelancerState extends State<ProfileFreelancer> {
                 ),
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.postuser.name,
-                  style: porofiletitlename,
-                ),
-                Text(
-                  'FREELANCER',
-                  style: paragraphmedium1,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  widget.postuser.about,
-                  style: paragraphmedium2,
-                )
-              ],
+            Expanded(
+                          child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.postuser.name,
+                    style: porofiletitlename,
+                  ),
+                  Text(
+                    'FREELANCER',
+                    style: paragraphmedium1,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+               Text(
+                            widget.postuser.about,
+                          overflow: TextOverflow.fade,
+                          softWrap: true,
+                            style: TextStyle(fontSize: .03*MediaQuery.of(context).size.width,color: Colors.grey,fontWeight: FontWeight.w400),
+                          )
+                ],
+              ),
             ),
           ],
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              MaterialButton(
-                onPressed: () {},
-                child: Text(
-                  'Pay',
-                  style: paragraphmedium,
-                ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4)),
-                color: kSuccessColorPayment,
-                elevation: 1,
-                focusElevation: 1,
-                highlightElevation: 1,
-                focusColor: kSuccessColorPayment,
-                highlightColor: kSuccessColorPayment,
-              ),
+              
               SizedBox(
-                width: 8,
+                width: 10,
               ),
               MaterialButton(
                   onPressed: () {
@@ -114,18 +108,18 @@ class _ProfileFreelancerState extends State<ProfileFreelancer> {
                   highlightElevation: 1,
                   focusColor: kSecondary,
                   highlightColor: kSecondary),
-              SizedBox(
-                width: 8,
-              ),
+            
               MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Hirepage.show(context, widget.database, widget.usermodel, widget.postuser);
+                  },
                   child: Text(
                     'Hire',
                     style: paragraphmedium,
                   ),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4)),
-                  color: kPrimaryColor,
+                  color: kSuccessColorPayment,
                   elevation: 1,
                   focusElevation: 1,
                   highlightElevation: 1,
@@ -237,36 +231,11 @@ Widget _buildList2({String key, @required Database database, @required Usermodel
                       endIndent: 10,
                       thickness: 1,
                     ),
-                    Profilecontents(
-                        contentname: 'Payments', content: widget.usermodel.name),
-                    Divider(
-                      color: dividerprofile,
-                      indent: 10,
-                      endIndent: 10,
-                      thickness: 1,
-                    ),
-                    Profilecontents(
-                        contentname: 'Projects', content: widget.usermodel.name),
-
-                    if (widget.usermodel.role == 'Freelancer') ...[      
-                    Divider(
-                      color: dividerprofile,
-                      indent: 10,
-                      endIndent: 10,
-                      thickness: 1,
-                    ),
-                    Profilecontents(
-                        contentname: 'Posts', content: widget.usermodel.name),
-                    Divider(
-                      color: dividerprofile,
-                      indent: 10,
-                      endIndent: 10,
-                      thickness: 1,
-                    ),
+                  
                     Profilecontents(
                         contentname: 'Website',
                         content: widget.usermodel.website),
-        ],]
+        ]
     ),
   );
      

@@ -1,12 +1,15 @@
 import 'package:clicktimes/models/hiremodel.dart';
 import 'package:clicktimes/models/usermodel.dart';
 import 'package:clicktimes/pages/paymentpage.dart';
+import 'package:clicktimes/pages/razorpay.dart';
 import 'package:clicktimes/services/database.dart';
 import 'package:clicktimes/services/firestore_service.dart';
 import 'package:clicktimes/services/paymentservice.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import '../constant.dart';
 
@@ -27,13 +30,69 @@ class HiringDetails extends StatefulWidget {
 }
 
 class _HiringDetailsState extends State<HiringDetails> {
-  @override
+@override
   void initState() {
     super.initState();
-  paymentService.initPayment();
-}
+
+    razorpay = new Razorpay();
+
+    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlerPaymentSuccess);
+    razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlerErrorFailure);
+    razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handlerExternalWallet);
+  }
+  
+  @override
+  void dispose() {
+    
+    super.dispose();
+    razorpay.clear();
+  }
+
+   void openCheckout(){
+    var options = {
+      "key" : "rzp_test_2D5WK7ua3Jl55Z",
+      "amount" : num.parse(widget.hire.amount)*100,
+      "name" : "Sample App",
+      "description" : "Payment for the some random product",
+      "prefill" : {
+        "contact" : "2323232323",
+        "email" : "shdjsdh@gmail.com"
+      },
+      "external" : {
+        "wallets" : ["paytm"]
+      }
+    };
+
+    try{
+      razorpay.open(options);
+
+    }catch(e){
+      print(e.toString());
+    }
+   Navigator.pop(context);
+   
+  }
+
+  void handlerPaymentSuccess(PaymentSuccessResponse response)async{
+
+ await FirebaseFirestore.instance.collection('Hiring').doc(widget.hire.orderid).update({'paid':true});
+  }
+
+  void handlerErrorFailure(){
+
+ 
+  }
+
+  void handlerExternalWallet(){
+    print("External Wallet");
+    Fluttertoast.showToast(
+      msg: 'Exatenal Wallet'
+    );
+  }
+
   PaymentService paymentService=PaymentService();
   TextEditingController controller = TextEditingController();
+  Razorpay razorpay;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -248,18 +307,11 @@ class _HiringDetailsState extends State<HiringDetails> {
                               children: [
                                 if (snapshot.data.paymentrequest == true &&
                                     snapshot.data.reject == false &&
-                                    snapshot.data.complete == false) ...[
+                                    snapshot.data.paid == false) ...[
                                   MaterialButton(
-                                      onPressed: () async {
+                                      onPressed: ()  {
                                       
-                           await Navigator.of(context,rootNavigator: true).push(MaterialPageRoute(
-                                      fullscreenDialog: true,
-                                      //maintainState: true,
-                                      builder: (context)=>Paymentpage (
-                     
-                                    )
-                                    ));
-                                    
+                                      openCheckout();
                                         
                                       },
                                       color: kSuccessColorPayment,
@@ -276,7 +328,7 @@ class _HiringDetailsState extends State<HiringDetails> {
                                         borderRadius: BorderRadius.circular(6),
                                       )),
                                 ],
-                                snapshot.data.complete == true
+                                snapshot.data.complete == true && snapshot.data.paid
                                     ? Text('Work has been Completed')
                                     : Container(
                                         height: 0,

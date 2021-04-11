@@ -23,7 +23,7 @@ return StreamBuilder<Usermodel>(
   stream: database.userStream(uid: widget.uid),
   builder: (context, snapshot) {
     if(snapshot.hasData && snapshot.connectionState==ConnectionState.active){
-  return      HomePage(usermodel: snapshot.data);}
+  return      HomePage(usermodel: snapshot.data,userurl:widget.photourl,);}
     if(snapshot.data==null && snapshot.connectionState==ConnectionState.active){
       return Registrationpage(uid: widget.uid,photourl:widget.photourl);
     } 

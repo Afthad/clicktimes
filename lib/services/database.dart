@@ -37,6 +37,8 @@ abstract class Database {
   Stream<List<Hire>>hiringstreamFreelance();
     Future<void> updateHirepayment(Hire hire,String orderid) ;
     Stream<Hire>hiringstreamselected(String orderid);
+    Future<void> deletePost(String postid) ;
+    Stream<List<Usermodel>>  getusersearch(String text);
   // Future<void> setEntry(Entry entry);
   // Future<void> deleteEntry(Entry entry);
   // Stream<List<Entry>> entriesStream({Job job});
@@ -170,12 +172,20 @@ class FirestoreDatabase implements Database {
         builder: (data, documentId) =>
             Usermodel.fromMap(data, documentId),
       );
+Stream<List<Usermodel>> getusersearch(String text) => _service.collectionStream(
+        path: APIPath.userget(),
+        builder: (data, documentId) =>
+            Usermodel.fromMap(data, documentId),
+                queryBuilder: (query) => query.where('searchindex', arrayContains:  text,).where('role',isEqualTo: 'Freelancer'),
+      );
 
   @override
   Stream<List<ChatRoomModel>> chatRoomstreams() => _service.collectionStream(
         path: APIPath.chatRoomStream(),
         builder: (data, documentId) => ChatRoomModel.fromMap(data, documentId),
-        queryBuilder: (query) => query.where('users', arrayContains: uid),
+        queryBuilder: (query) => query.where('users', arrayContains: uid 
+        
+      ),
       );
   @override
   Stream<List<Post>> postStream() => _service.collectionStream(
@@ -200,6 +210,9 @@ class FirestoreDatabase implements Database {
   @override
   Future<void> deleteUser() async =>
       await _service.deleteData(path: APIPath.user(uid));
+        @override
+  Future<void> deletePost(String postid) async =>
+      await _service.deleteData(path: APIPath.postadd(postid));
   @override
   Future<void> deleteBooking(String orderid) async =>
       await _service.deleteData(path: APIPath.addbookings(orderid));

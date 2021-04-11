@@ -126,6 +126,7 @@ final snackBarCategory = SnackBar(content: Text('Category not Selected '),  acti
         complete: false,
         reject: false,
         paymentrequest: false,
+        paid:false,
         
         
         

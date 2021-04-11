@@ -1,3 +1,4 @@
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -76,6 +77,18 @@ const paragraphmedium1 = TextStyle(
 );
 const paragraphmedium2 = TextStyle(
   fontSize: 14,
+  fontWeight: FontWeight.w400,
+  color: Colors.black,
+  fontFamily: 'Inter'
+);
+// const paragraphmedium2 = TextStyle(
+//   //fontSize: MediaQuery.of(context).size.width,
+//   fontWeight: FontWeight.w400,
+//   color: Colors.black,
+//   fontFamily: 'Inter'
+// );
+const paragraphmediumsearch = TextStyle(
+  fontSize: 10,
   fontWeight: FontWeight.w400,
   color: Colors.black,
   fontFamily: 'Inter'

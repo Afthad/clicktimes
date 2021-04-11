@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:clicktimes/models/usermodel.dart';
 import 'package:clicktimes/services/database.dart';
 import 'package:clicktimes/widgets/choices.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,15 +14,16 @@ import 'package:provider/provider.dart';
 
 import '../constant.dart';
 
-class Registrationpage extends StatefulWidget {
-  final String uid;
-final String photourl;
-  const Registrationpage({Key key, this.uid, this.photourl}) : super(key: key);
+class Editpage extends StatefulWidget {
+
+ final  Usermodel usermodel;
+ final String url;
+  const Editpage({Key key, this.usermodel, this.url}) : super(key: key);
   @override
-  _RegistrationpageState createState() => _RegistrationpageState();
+  _EditpageState createState() => _EditpageState();
 }
 
-class _RegistrationpageState extends State<Registrationpage> {
+class _EditpageState extends State<Editpage> {
   File _imageFile;
   final picker = ImagePicker();
 
@@ -71,7 +73,6 @@ class _RegistrationpageState extends State<Registrationpage> {
   String website;
   String about ='';
   String email;
-dynamic searchindex;
 
   String freelancerText =
       "Free lancers provide services like Photography, Video Editing, Graphic Design, Camera Renting";
@@ -98,52 +99,25 @@ action: SnackBarAction(label: 'Undo', onPressed: (){}),
 );
   bool _validateAndSaveForm() {
     final form = _formKey.currentState;
-    print(widget.uid);
+    
     // if(_imageFile!= null){
     // uploadImageToFirebase();}
-    if(role != null){
+
     if (form.validate())  {
       form.save();
       return true;
     
-    }}
-    else ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  
     return false;
   }
-List<String> _addToDatabase(String search){
-  
-  List<String>splitList=search.split(",");
- List<String>indexList=[];
- for(int i=0;i<splitList.length;i++){
-   for(int y=1;y<splitList[i].length+1;y++){
-     indexList.add(splitList[i].substring(0,y).toLowerCase());
-   }
- }
-        return indexList.toList();
-}
+
   Future<void> _submit(Database database) async {
     if (_validateAndSaveForm()) {
       try {
-            final users= await database.getuser().first;
-    final allusers = users.map((users) => users.email).toList();
-    if(!allusers.contains(email)){
-     
-        final usermodel = Usermodel(
-         searchindex:  _addToDatabase(selectedworkList.join(','))!=null?_addToDatabase(selectedworkList.join(',')):'no',
-            email: email,     
-            about: selectedworkList!=null? selectedworkList.join(','):'null',
-            profile:await uploadImageToFirebase()!=null?uploadImageToFirebase()!=null:widget.photourl,
-            phone: phone,
-            role: role,
-            uid: widget.uid,
-            website: website,
-            location: location,
-            available: false,
-            name: name);
-        await database.setUser(usermodel);
-        }
-        else ScaffoldMessenger.of(context).showSnackBar(snackBaremail);
-       
+      String url=await uploadImageToFirebase();
+await FirebaseFirestore.instance.collection('Users').doc(widget.usermodel.uid).update({'name':name,'phone':phone,'location':location,'profile':url!=null?url:widget.url,});
+       Navigator.of(context).pop();
       } catch (e) {
         print(e);
       }
@@ -160,14 +134,7 @@ Future<String> uploadImageToFirebase() async {
   Widget build(BuildContext context) {
     final database = Provider.of<Database>(context);
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.5,
-        backgroundColor: Colors.white,
-        title: Text(
-          'Your Profile',
-          style: headerappbar,
-        ),
-      ),
+    
       backgroundColor: Colors.white,
       body: _buildContents(database),
     );
@@ -253,6 +220,7 @@ Future<String> uploadImageToFirebase() async {
             hintStyle: paragraphmedium1,
             fillColor: Colors.white,
             filled: true),
+            initialValue: widget.usermodel.name,
         keyboardType: TextInputType.name,
         validator: (value) => value.isNotEmpty ? null : 'Name can\'t be empty',
         onSaved: (value) => name = value,
@@ -280,6 +248,7 @@ Future<String> uploadImageToFirebase() async {
             hintStyle: paragraphmedium1,
             fillColor: Colors.white,
             filled: true),
+             initialValue: widget.usermodel.phone,
         keyboardType: TextInputType.phone,
         validator: (value) =>
             value.isNotEmpty ? null : 'Phone Number can\'t be empty',
@@ -291,34 +260,7 @@ Future<String> uploadImageToFirebase() async {
 
 
 
-        Text(
-        'Your Email',
-        style: formheading,
-      ),
-      Divider(),
-      TextFormField(autofocus: false,
-        decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(10),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-              borderSide: BorderSide(color: Colors.grey, width: .5),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-              borderSide: BorderSide(color: Colors.grey, width: .5),
-            ),
-            hintText: 'Email',
-            hintStyle: paragraphmedium1,
-            fillColor: Colors.white,
-            filled: true),
-        keyboardType: TextInputType.emailAddress,
-        validator: (value) =>
-            value.isNotEmpty ? null : 'Email can\'t be empty',
-        onSaved: (value) => email = value,
-      ),
-      SizedBox(
-        height: 10,
-      ),
+      
 
       Text(
         'Your Location',
@@ -340,124 +282,14 @@ Future<String> uploadImageToFirebase() async {
             hintStyle: paragraphmedium1,
             fillColor: Colors.white,
             filled: true),
+             initialValue: widget.usermodel.location,
         keyboardType: TextInputType.name,
         validator: (value) =>
             value.isNotEmpty ? null : 'Location Number can\'t be empty',
         onSaved: (value) => location = value,
       ),
-      SizedBox(
-        height: 10,
-      ),
-      Text(
-        'Select Role',
-        style: formheading,
-      ),
-      Divider(),
-      Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey, width: .5),
-            borderRadius: BorderRadius.all(Radius.circular(4))),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: DropdownButton<String>(
-            value: role,
-            icon: const Icon(Icons.arrow_downward),
-            iconSize: 0,
-            elevation: 0,
-            hint: Text(
-              'Select Role',
-              style: paragraphmedium1,
-            ),
-            style: const TextStyle(color: Colors.black),
-            dropdownColor: Colors.white,
-            underline: Container(
-              height: 2,
-              color: Colors.transparent,
-            ),
-            onChanged: (String newValue) {
-              setState(() {
-                role = newValue;
-                website='';
-                selectedworkList=[];
-              });
-            },
-            items: <String>['Freelancer', 'Customer', 'CT Agent']
-                .map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-          ),
-        ),
-      ),
-      if (role == 'Freelancer') ...[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(freelancerText),
-        )
-      ],
-      if (role == 'Customer') ...[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(customerText),
-        )
-      ],
-      if (role == 'CT Agent') ...[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(ctAgentText),
-        )
-      ],
-      if (role == 'Freelancer') ...[
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          'Your Website',
-          style: formheading,
-        ),
-        Divider(),
-        TextFormField(
-
-         autofocus: false,
-          
-          decoration: InputDecoration(
-              contentPadding: EdgeInsets.all(10),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(4)),
-                borderSide: BorderSide(color: Colors.grey, width: .5),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(4)),
-                borderSide: BorderSide(color: Colors.grey, width: .5),
-              ),
-              hintText: 'Website',
-              hintStyle: paragraphmedium1,
-              fillColor: Colors.white,
-              filled: true),
-          keyboardType: TextInputType.name,
-          validator: (value) =>
-              value.isNotEmpty ? null : 'Website Number can\'t be empty',
-          onSaved: (value) => website = value,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          'Works You Do',
-          style: formheading,
-        ),
-        Divider(),
-        MultiSelectChip(
-          workList,
-          onSelectionChanged: (selectedList) {
-            setState(() {
-              selectedworkList = selectedList;
-            });
-          },
-        ),
-      ]
+     
+      
     ];
   }
 }

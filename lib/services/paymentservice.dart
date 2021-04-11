@@ -29,12 +29,12 @@ void _handlePaymentSuccess(PaymentSuccessResponse response) {
    } 
 
 
-getpayment(BuildContext context ,Usermodel usermodel,Hire hire)async{
+getpayment(BuildContext context ,Usermodel usermodel,Hire hire,)async{
   int amount=int.parse(hire.amount);
   try {
      var options = {
   'key': 'rzp_test_2D5WK7ua3Jl55Z',
-  'amount': 1000, //in the smallest currency sub-unit.
+  'amount': amount*100, //in the smallest currency sub-unit.
   'name': 'ClickTimes Pvt Ltd',
   'order_id': 'sasn s SsSJ', // Generate order_id using Orders API
   'description': hire.category,

@@ -108,16 +108,17 @@ class _PosttileState extends State<Posttile>   {
           ),
           title: GestureDetector(
             onTap: () {
+              if(widget.usermodel.uid!=widget.userpost.uid){
               Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => ProfileFreelancer(
-                          post: widget.post,
+                         // post: widget.post,
                           usermodel: widget.usermodel,
                           postuser: widget.userpost,
                           database: widget.database,
                         )),
-              );
+              );}
             },
             child: Text(
               widget.userpost.name,
@@ -135,9 +136,9 @@ class _PosttileState extends State<Posttile>   {
                   _service.createRoomMessage(context, widget.database, widget.usermodel, widget.userpost);
               }):IconButton(
               icon: Icon(Icons.delete),
-              onPressed: () {
-
-                  _service.createRoomMessage(context, widget.database, widget.usermodel, widget.userpost);
+              onPressed: () async{
+           await widget.database.deletePost(widget.post.postId);
+                  
               }),
         ),
         SizedBox(
@@ -205,7 +206,7 @@ class _PosttileState extends State<Posttile>   {
             style: paragraphmedium2,
           ),
           horizontalTitleGap: 1,
-          trailing:widget.usermodel.role!='Customer' ?Padding(
+          trailing:widget.usermodel.role=='Customer' && widget.usermodel.uid!=widget.userpost.uid ?Padding(
             padding: const EdgeInsets.all(8.0),
             child: MaterialButton(
               onPressed: () =>
